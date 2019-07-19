@@ -18,22 +18,26 @@ class AppDate {
     return this._tasksDate.toJSON();
   }
 
+  get allDates() {
+    return {
+      calendarDate: this.calendarDate,
+      tasksDate: this.tasksDate,
+      todayDate: this.todayDate
+    };
+  }
+
   setNextMonth() {
-    // eslint-disable-next-line no-console
-    console.log(`current`, this.calendarDate);
     this._calendarDate.setMonth(this._calendarDate.getMonth() + 1);
-    // eslint-disable-next-line no-console
-    console.log(`next`, this.calendarDate);
-    return this.calendarDate;
+    this._tasksDate = new Date(this.calendarDate);
+
+    return this.allDates;
   }
 
   setPrevMonth() {
-    // eslint-disable-next-line no-console
-    console.log(`current`, this.calendarDate);
     this._calendarDate.setMonth(this._calendarDate.getMonth() - 1);
-    // eslint-disable-next-line no-console
-    console.log(`prev`, this.calendarDate);
-    return this.calendarDate;
+    this._tasksDate = new Date(this.calendarDate);
+
+    return this.allDates;
   }
 }
 

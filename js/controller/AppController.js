@@ -4,18 +4,17 @@ import AppView from '../view/AppView';
 class AppController {
   constructor() {
     this._model = new AppDate();
-    const { calendarDate } = this._model;
-    this._view = new AppView(calendarDate);
+    this._view = new AppView(this._model.allDates);
   }
 
   init() {
     this._view.onPrevButtonClick = () => {
-      const newCalendarDate = this._model.setPrevMonth();
-      this._view.changeCalendarDate(newCalendarDate);
+      const newDates = this._model.setPrevMonth();
+      this._view.changeCalendarDate(newDates);
     };
     this._view.onNextButtonClick = () => {
-      const newCalendarDate = this._model.setNextMonth();
-      this._view.changeCalendarDate(newCalendarDate);
+      const newDates = this._model.setNextMonth();
+      this._view.changeCalendarDate(newDates);
     };
     this._view.init();
   }
