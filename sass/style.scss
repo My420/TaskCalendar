@@ -2,3 +2,7 @@
 @import 'fonts.scss';
 @import 'variables.scss';
 @import 'global.scss';
+
+.calendar__cell[data-active='true'] {
+  outline: 1px solid red;
+}

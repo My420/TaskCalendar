@@ -17,6 +17,11 @@ class AppController {
       const newDates = this._model.setNextMonth();
       this._view.changeCalendarDate(newDates);
     };
+
+    this._view.onCellClick = cellDate => {
+      const newDate = this._model.setTasksDate(cellDate);
+      this._view.changeTasksDate(newDate);
+    };
     this._view.render();
   }
 }

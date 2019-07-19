@@ -3,8 +3,9 @@ import setDayOnMonday from '../utils/setDayOnMonday';
 import getTableHeader from './calendarTableHeader';
 import { CALENDAR_ROW_AMOUNT, CALENDAR_COLUMN_AMOUNT } from '../utils/constant';
 
-const getCalendarTemplate = chosenDate => {
-  const date = new Date(chosenDate);
+const getCalendarTemplate = (calendarDate, tasksDate) => {
+  const date = new Date(calendarDate);
+
   setDayOnMonday(date);
 
   let template = getTableHeader();
@@ -13,7 +14,7 @@ const getCalendarTemplate = chosenDate => {
     template += `<tr class="table__row">`;
 
     for (let j = 0; j < CALENDAR_COLUMN_AMOUNT; j += 1) {
-      template += calendarDayTemplate(date.getDate());
+      template += calendarDayTemplate(date.toJSON(), tasksDate);
       date.setDate(date.getDate() + 1);
     }
     template += `</tr>`;

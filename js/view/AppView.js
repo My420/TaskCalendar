@@ -3,7 +3,7 @@ import CalendarView from './CalendarView';
 import AbstractView from './AbstractView';
 import TaskListView from './TaskListView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick"] }] */
 class AppView extends AbstractView {
   constructor(allDates, rootElement) {
     super(rootElement);
@@ -22,13 +22,19 @@ class AppView extends AbstractView {
   _createChildrenView() {
     const { calendarDate, tasksDate } = this._allDates;
     this._header = new HeaderView(calendarDate, this._headerContainer);
-    this._calendar = new CalendarView(calendarDate, this._calendarContainer);
+    this._calendar = new CalendarView(
+      calendarDate,
+      tasksDate,
+      this._calendarContainer
+    );
     this._tasks = new TaskListView(tasksDate, this._tasksContainer);
   }
 
   _setChildrenViewHendlerFunction() {
     this._header.onPrevButtonClick = this.onPrevButtonClick;
     this._header.onNextButtonClick = this.onNextButtonClick;
+
+    this._calendar.onCellClick = this.onCellClick; // 1
   }
 
   _renderChildrenView() {
@@ -37,9 +43,14 @@ class AppView extends AbstractView {
     this._tasks.render();
   }
 
-  _changeCalendar(newDate) {
+  _changeCalendar(newDate, tasksDate) {
     this._calendar.unrender();
-    this._calendar = new CalendarView(newDate, this._calendarContainer);
+    this._calendar = new CalendarView(
+      newDate,
+      tasksDate,
+      this._calendarContainer
+    );
+    this._calendar.onCellClick = this.onCellClick; // 1
     this._calendar.render();
   }
 
@@ -70,8 +81,13 @@ class AppView extends AbstractView {
     this._allDates = newDate;
     const { calendarDate, tasksDate } = this._allDates;
     this._header.changeDisplayedDate(calendarDate);
-    this._changeCalendar(calendarDate);
+    this._changeCalendar(calendarDate, tasksDate);
     this._changeTasks(tasksDate);
+  }
+
+  changeTasksDate(newDate) {
+    this._calendar.changeActiveCell(newDate);
+    this._changeTasks(newDate);
   }
 
   onPrevButtonClick() {}
@@ -79,6 +95,8 @@ class AppView extends AbstractView {
   onNextButtonClick() {}
 
   onSearchButtonClick() {}
+
+  onCellClick() {}
 }
 
 export default AppView;

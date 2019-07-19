@@ -1,27 +1,58 @@
 import AbstractView from './AbstractView';
 import getCalendarTemplate from './calendarTemplate';
+import deleteTimePart from '../utils/deleteTimePart';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind",]}] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind","onCellClick"]}] */
 class CalendarView extends AbstractView {
-  constructor(chosenDate, parentElement) {
+  constructor(calendarDate, tasksDate, parentElement) {
     super(parentElement);
-    this._chosenDate = chosenDate;
+    this._calendarDate = calendarDate;
+    this._tasksDate = tasksDate;
+    this._onUserClick = this._onUserClick.bind(this);
   }
 
   get template() {
     return `
     <section class="calendar">
     <h2 class="visually-hidden">Календарь</h2>
-    <table>          
-        ${getCalendarTemplate(this._chosenDate)}           
+    <table class="calendar__table">          
+        ${getCalendarTemplate(this._calendarDate, this._tasksDate)}  
     </table>
   </section>
     `;
   }
 
-  bind() {}
+  _onUserClick(evt) {
+    const cellDate = evt.target.dataset.date;
+    this.onCellClick(cellDate);
+  }
 
-  unbind() {}
+  bind() {
+    this._table = this.element.querySelector('.calendar__table');
+    this._table.addEventListener('click', this._onUserClick);
+  }
+
+  unbind() {
+    this._table.removeEventListener('click', this._onUserClick);
+  }
+
+  changeActiveCell(tasksDate) {
+    const prevDate = deleteTimePart(this._tasksDate);
+    const prevCell = this._table.querySelector(
+      `.calendar__cell[data-date='${prevDate}']`
+    );
+
+    const newDate = deleteTimePart(tasksDate);
+    const newCell = this._table.querySelector(
+      `.calendar__cell[data-date='${newDate}']`
+    );
+
+    prevCell.dataset.active = false;
+    newCell.dataset.active = true;
+    this._tasksDate = tasksDate;
+  }
+
+  onCellClick() {}
 }
 
 export default CalendarView;

@@ -1,3 +1,5 @@
+import compareUpToMonth from '../utils/compareUpToMonth';
+
 class AppDate {
   constructor() {
     this._todayDate = new Date();
@@ -28,16 +30,31 @@ class AppDate {
 
   setNextMonth() {
     this._calendarDate.setMonth(this._calendarDate.getMonth() + 1);
-    this._tasksDate = new Date(this.calendarDate);
+
+    if (compareUpToMonth(this.calendarDate, this.todayDate)) {
+      this._tasksDate = new Date(this.todayDate);
+    } else {
+      this._tasksDate = new Date(this.calendarDate);
+    }
 
     return this.allDates;
   }
 
   setPrevMonth() {
     this._calendarDate.setMonth(this._calendarDate.getMonth() - 1);
-    this._tasksDate = new Date(this.calendarDate);
+
+    if (compareUpToMonth(this.calendarDate, this.todayDate)) {
+      this._tasksDate = new Date(this.todayDate);
+    } else {
+      this._tasksDate = new Date(this.calendarDate);
+    }
 
     return this.allDates;
+  }
+
+  setTasksDate(date) {
+    this._tasksDate = new Date(date);
+    return this.tasksDate;
   }
 }
 

@@ -11,7 +11,7 @@ class HeaderView extends AbstractView {
   get template() {
     return `<div class="container">
     <header class="app-header header">
-      <h1 calss="visually-hidden">Календарь задач</h1>
+      <h1 class="visually-hidden">Календарь задач</h1>
       <p class="header__logo">TaskCalendar</p>
       <button class="header__button header__button--prev" data-target="prev">
         <span class="visually-hidden">Предыдущий месяц</span>Prev
