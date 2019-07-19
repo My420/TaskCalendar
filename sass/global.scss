@@ -1,0 +1,86 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+legend,
+fieldset,
+blockquote,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  min-width: 320px;
+  background-color: #ffffff;
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 30px;
+  color: #283645;
+}
+
+input,
+textarea {
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 30px;
+  color: #283645;
+}
+
+.container {
+  width: 87.5%;
+  margin: 0 auto;
+}
+
+@media (min-width: $tablet) {
+  .container {
+    width: 94%;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: $pc) {
+  .container {
+    width: 940px;
+    margin: 0 auto;
+  }
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type='checkbox'].visually-hidden,
+input[type='radio'].visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@keyframes open {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
