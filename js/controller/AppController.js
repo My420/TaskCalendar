@@ -2,9 +2,10 @@ import AppDate from '../model/AppDate';
 import AppView from '../view/AppView';
 
 class AppController {
-  constructor() {
+  constructor(rootElement) {
+    this._rootElement = rootElement;
     this._model = new AppDate();
-    this._view = new AppView(this._model.allDates);
+    this._view = new AppView(this._model.allDates, this._rootElement);
   }
 
   init() {
@@ -16,7 +17,7 @@ class AppController {
       const newDates = this._model.setNextMonth();
       this._view.changeCalendarDate(newDates);
     };
-    this._view.init();
+    this._view.render();
   }
 }
 

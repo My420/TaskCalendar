@@ -3,8 +3,8 @@ import getCalendarTemplate from './calendarTemplate';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind",]}] */
 class CalendarView extends AbstractView {
-  constructor(chosenDate) {
-    super();
+  constructor(chosenDate, parentElement) {
+    super(parentElement);
     this._chosenDate = chosenDate;
   }
 

@@ -5,40 +5,48 @@ import TaskListView from './TaskListView';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick"] }] */
 class AppView extends AbstractView {
-  constructor(allDates) {
-    super();
+  constructor(allDates, rootElement) {
+    super(rootElement);
     this._allDates = allDates;
+  }
+
+  _findContainers() {
+    this._headerContainer = this.element.querySelector('.container__header');
+    this._calendarContainer = this.element.querySelector(
+      '.container__calendar'
+    );
+    this._tasksContainer = this.element.querySelector('.container__tasks');
+    this._footerContainer = this.element.querySelector('.container__footer');
+  }
+
+  _createChildrenView() {
     const { calendarDate, tasksDate } = this._allDates;
-    this._rootElement = document.querySelector('.root');
-    this._header = new HeaderView(calendarDate);
-    this._calendar = new CalendarView(calendarDate);
-    this._tasks = new TaskListView(tasksDate);
+    this._header = new HeaderView(calendarDate, this._headerContainer);
+    this._calendar = new CalendarView(calendarDate, this._calendarContainer);
+    this._tasks = new TaskListView(tasksDate, this._tasksContainer);
   }
 
-  _renderHeader() {
-    this._headerContainer.appendChild(this._header.render());
+  _setChildrenViewHendlerFunction() {
+    this._header.onPrevButtonClick = this.onPrevButtonClick;
+    this._header.onNextButtonClick = this.onNextButtonClick;
   }
 
-  _renderCalendar() {
-    this._calendarContainer.appendChild(this._calendar.render());
-  }
-
-  _renderTasks() {
-    this._tasksContainer.appendChild(this._tasks.render());
+  _renderChildrenView() {
+    this._header.render();
+    this._calendar.render();
+    this._tasks.render();
   }
 
   _changeCalendar(newDate) {
     this._calendar.unrender();
-    this._calendarContainer.innerHTML = ``;
-    this._calendar = new CalendarView(newDate);
-    this._renderCalendar();
+    this._calendar = new CalendarView(newDate, this._calendarContainer);
+    this._calendar.render();
   }
 
   _changeTasks(newDate) {
     this._tasks.unrender();
-    this._tasksContainer.innerHTML = ``;
-    this._tasks = new TaskListView(newDate);
-    this._renderTasks();
+    this._tasks = new TaskListView(newDate, this._tasksContainer);
+    this._tasks.render();
   }
 
   get template() {
@@ -52,22 +60,10 @@ class AppView extends AbstractView {
   }
 
   bind() {
-    this._headerContainer = this._element.querySelector('.container__header');
-    this._calendarContainer = this._element.querySelector(
-      '.container__calendar'
-    );
-    this._tasksContainer = this._element.querySelector('.container__tasks');
-    this._footerContainer = this._element.querySelector('.container__footer');
-  }
-
-  init() {
-    this._rootElement.appendChild(this.render());
-
-    this._header.onPrevButtonClick = this.onPrevButtonClick;
-    this._header.onNextButtonClick = this.onNextButtonClick;
-    this._renderHeader();
-    this._renderCalendar();
-    this._renderTasks();
+    this._findContainers();
+    this._createChildrenView();
+    this._setChildrenViewHendlerFunction();
+    this._renderChildrenView();
   }
 
   changeCalendarDate(newDate) {

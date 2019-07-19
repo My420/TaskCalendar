@@ -2,8 +2,8 @@ import AbstractView from './AbstractView';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind"]}] */
 class TaskListView extends AbstractView {
-  constructor(listDate) {
-    super();
+  constructor(listDate, parentElement) {
+    super(parentElement);
     this._listDate = listDate;
   }
 

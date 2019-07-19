@@ -2,8 +2,8 @@ import AbstractView from './AbstractView';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onPrevButtonClick","onNextButtonClick","onSearchButtonClick"]}] */
 class HeaderView extends AbstractView {
-  constructor(chosenDate) {
-    super();
+  constructor(chosenDate, parentElement) {
+    super(parentElement);
     this._chosenDate = chosenDate;
     this.onUserClick = this.onUserClick.bind(this);
   }
