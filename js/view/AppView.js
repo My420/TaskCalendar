@@ -33,30 +33,12 @@ class AppView extends AbstractView {
   _setChildrenViewHendlerFunction() {
     this._header.onPrevButtonClick = this.onPrevButtonClick;
     this._header.onNextButtonClick = this.onNextButtonClick;
-
-    this._calendar.onCellClick = this.onCellClick; // 1
+    this._calendar.onCellClick = this.onCellClick;
   }
 
   _renderChildrenView() {
     this._header.render();
     this._calendar.render();
-    this._tasks.render();
-  }
-
-  _changeCalendar(newDate, tasksDate) {
-    this._calendar.unrender();
-    this._calendar = new CalendarView(
-      newDate,
-      tasksDate,
-      this._calendarContainer
-    );
-    this._calendar.onCellClick = this.onCellClick; // 1
-    this._calendar.render();
-  }
-
-  _changeTasks(newDate) {
-    this._tasks.unrender();
-    this._tasks = new TaskListView(newDate, this._tasksContainer);
     this._tasks.render();
   }
 
@@ -81,13 +63,13 @@ class AppView extends AbstractView {
     this._allDates = newDate;
     const { calendarDate, tasksDate } = this._allDates;
     this._header.changeDisplayedDate(calendarDate);
-    this._changeCalendar(calendarDate, tasksDate);
-    this._changeTasks(tasksDate);
+    this._calendar.changeCalendar(calendarDate, tasksDate);
+    this._tasks.changeTasks(tasksDate);
   }
 
   changeTasksDate(newDate) {
     this._calendar.changeActiveCell(newDate);
-    this._changeTasks(newDate);
+    this._tasks.changeTasks(newDate);
   }
 
   onPrevButtonClick() {}

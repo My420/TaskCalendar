@@ -8,12 +8,12 @@ class AppModel {
   }
 
   changeMonthToNext() {
-    const newDates = this._date.setPrevMonth();
+    const newDates = this._date.setNextMonth();
     return newDates;
   }
 
   changeMonthToPrev() {
-    const newDates = this._date.setNextMonth();
+    const newDates = this._date.setPrevMonth();
     return newDates;
   }
 

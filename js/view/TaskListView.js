@@ -16,6 +16,12 @@ class TaskListView extends AbstractView {
       `;
   }
 
+  changeTasks(newDate) {
+    this.unrender();
+    this._listDate = newDate;
+    this.render();
+  }
+
   bind() {}
 
   unbind() {}

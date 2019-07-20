@@ -52,6 +52,13 @@ class CalendarView extends AbstractView {
     this._tasksDate = tasksDate;
   }
 
+  changeCalendar(newDate, tasksDate) {
+    this.unrender();
+    this._calendarDate = newDate;
+    this._tasksDate = tasksDate;
+    this.render();
+  }
+
   onCellClick() {}
 }
 
