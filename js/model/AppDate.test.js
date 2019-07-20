@@ -41,4 +41,10 @@ describe('App Date class works correct', () => {
     expect(typeof appDate.todayDate).toBe('string');
     expect(typeof appDate.tasksDate).toBe('string');
   });
+
+  test('setTasksDate should work correct', () => {
+    const newDate = '2019-09-12T00:00:00.000Z';
+    appDate.setTasksDate(newDate);
+    expect(appDate.tasksDate).toBe('2019-09-12T00:00:00.000Z');
+  });
 });
