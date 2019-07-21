@@ -1,6 +1,6 @@
 import AbstractView from './AbstractView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onPrevButtonClick","onNextButtonClick","onSearchButtonClick"]}] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCreateButtonClick"]}] */
 class HeaderView extends AbstractView {
   constructor(chosenDate, parentElement) {
     super(parentElement);
@@ -9,10 +9,12 @@ class HeaderView extends AbstractView {
   }
 
   get template() {
-    return `<div class="container">
-    <header class="app-header header">
+    return `<header class="app-header header">
       <h1 class="visually-hidden">Календарь задач</h1>
       <p class="header__logo">TaskCalendar</p>
+      <button class="header__button header__button--create" data-target="create">
+        <span class="visually-hidden">Создать задачу</span>Создать
+      </button>
       <button class="header__button header__button--prev" data-target="prev">
         <span class="visually-hidden">Предыдущий месяц</span>Prev
       </button>
@@ -24,8 +26,7 @@ class HeaderView extends AbstractView {
       <button class="header__button header__button--search" data-target="search">
         <span class="visually-hidden">Поиск</span>Поиск
       </button>
-    </header>
-  </div>`;
+    </header>`;
   }
 
   onUserClick(evt) {
@@ -36,6 +37,8 @@ class HeaderView extends AbstractView {
       this.onNextButtonClick();
     } else if (button === `search`) {
       this.onSearchButtonClick();
+    } else if (button === `create`) {
+      this.onCreateButtonClick();
     }
   }
 
@@ -63,6 +66,8 @@ class HeaderView extends AbstractView {
   onNextButtonClick() {}
 
   onSearchButtonClick() {}
+
+  onCreateButtonClick() {}
 }
 
 export default HeaderView;

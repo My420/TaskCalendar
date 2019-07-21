@@ -9,7 +9,6 @@ class AbstractView {
     }
     this._element = null;
     this._parentElement = parentElement;
-    this._state = {};
   }
 
   get element() {

@@ -2,6 +2,7 @@ import HeaderView from './HeaderView';
 import CalendarView from './CalendarView';
 import AbstractView from './AbstractView';
 import TaskListView from './TaskListView';
+import TaskView from './TaskView';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick"] }] */
 class AppView extends AbstractView {
@@ -11,6 +12,7 @@ class AppView extends AbstractView {
   }
 
   _findContainers() {
+    this._taskContainer = this.element.querySelector('.container__task');
     this._headerContainer = this.element.querySelector('.container__header');
     this._calendarContainer = this.element.querySelector(
       '.container__calendar'
@@ -28,12 +30,15 @@ class AppView extends AbstractView {
       this._calendarContainer
     );
     this._tasks = new TaskListView(tasksDate, this._tasksContainer);
+    this._task = new TaskView(this._taskContainer);
   }
 
   _setChildrenViewHendlerFunction() {
     this._header.onPrevButtonClick = this.onPrevButtonClick;
     this._header.onNextButtonClick = this.onNextButtonClick;
     this._calendar.onCellClick = this.onCellClick;
+    this._header.onCreateButtonClick = () =>
+      this._task.showCreateCard(this._allDates.tasksDate);
   }
 
   _renderChildrenView() {
@@ -43,7 +48,8 @@ class AppView extends AbstractView {
   }
 
   get template() {
-    return `<div class="container container__header"></div>
+    return `<div class="container container__task"></div>
+    <div class="container container__header"></div>
     <main class="app__main">
     <div class="container container__calendar"></div>
     <div class="container container__tasks"></div>
@@ -68,6 +74,7 @@ class AppView extends AbstractView {
   }
 
   changeTasksDate(newDate) {
+    this._allDates.tasksDate = newDate;
     this._calendar.changeActiveCell(newDate);
     this._tasks.changeTasks(newDate);
   }
