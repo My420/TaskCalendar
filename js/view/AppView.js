@@ -68,11 +68,11 @@ class AppView extends AbstractView {
     this._renderChildrenView();
   }
 
-  changeCalendarDate(newDate) {
-    this._allDates = newDate;
+  changeCalendarDate(newDates, newTasks) {
+    this._allDates = newDates;
     const { calendarDate, tasksDate } = this._allDates;
     this._header.changeDisplayedDate(calendarDate);
-    this._calendar.changeCalendar(calendarDate, tasksDate);
+    this._calendar.changeCalendar(calendarDate, tasksDate, newTasks);
     this._tasks.changeTasks(tasksDate);
   }
 

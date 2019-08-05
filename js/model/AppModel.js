@@ -9,12 +9,16 @@ class AppModel {
 
   changeMonthToNext() {
     const newDates = this._date.setNextMonth();
-    return newDates;
+    const tasks = this._tasks.getTasksForCalendarPeriod(newDates.calendarDate);
+
+    return { dates: newDates, tasks };
   }
 
   changeMonthToPrev() {
     const newDates = this._date.setPrevMonth();
-    return newDates;
+    const tasks = this._tasks.getTasksForCalendarPeriod(newDates.calendarDate);
+
+    return { dates: newDates, tasks };
   }
 
   changeTasksDate(newDate) {

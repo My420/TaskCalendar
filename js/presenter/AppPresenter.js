@@ -10,12 +10,12 @@ class AppPresenter {
 
   init() {
     this._view.onPrevButtonClick = () => {
-      const newDates = this._model.changeMonthToPrev();
-      this._view.changeCalendarDate(newDates);
+      const newData = this._model.changeMonthToPrev();
+      this._view.changeCalendarDate(newData.dates, newData.tasks);
     };
     this._view.onNextButtonClick = () => {
-      const newDates = this._model.changeMonthToNext();
-      this._view.changeCalendarDate(newDates);
+      const newData = this._model.changeMonthToNext();
+      this._view.changeCalendarDate(newData.dates, newData.tasks);
     };
 
     this._view.onCellClick = cellDate => {
