@@ -22,8 +22,15 @@ class AppModel {
     return newTaskDate;
   }
 
-  get monthData() {
-    return this._date.allDates;
+  get calendarPeriodData() {
+    const dates = this._date.allDates;
+    const tasks = this._tasks.getTasksForCalendarPeriod(dates.calendarDate);
+
+    return { dates, tasks };
+  }
+
+  addNewTask(task) {
+    this._tasks.addNewTask(task);
   }
 }
 

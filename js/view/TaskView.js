@@ -1,7 +1,7 @@
 import AbstractView from './AbstractView';
 import CardEditView from './CardEditView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", unbind] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewCardAdd"] }] */
 class TaskView extends AbstractView {
   constructor(parentElement) {
     super(parentElement);
@@ -15,12 +15,15 @@ class TaskView extends AbstractView {
       this._taskDate,
       this._parentElement
     );
+    this._currentView.onNewCardAdd = this.onNewCardAdd;
     this._currentView.render();
   }
 
   bind() {}
 
   unbind() {}
+
+  onNewCardAdd() {}
 }
 
 export default TaskView;

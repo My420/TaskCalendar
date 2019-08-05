@@ -4,10 +4,11 @@ import deleteTimePart from '../utils/deleteTimePart';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind","onCellClick"]}] */
 class CalendarView extends AbstractView {
-  constructor(calendarDate, tasksDate, parentElement) {
+  constructor(calendarDate, tasksDate, calendarPeriodTasks, parentElement) {
     super(parentElement);
     this._calendarDate = calendarDate;
     this._tasksDate = tasksDate;
+    this._tasks = calendarPeriodTasks;
     this._onUserClick = this._onUserClick.bind(this);
   }
 
@@ -16,7 +17,11 @@ class CalendarView extends AbstractView {
     <section class="calendar">
     <h2 class="visually-hidden">Календарь</h2>
     <table class="calendar__table">          
-        ${getCalendarTemplate(this._calendarDate, this._tasksDate)}  
+        ${getCalendarTemplate(
+          this._calendarDate,
+          this._tasksDate,
+          this._tasks
+        )}  
     </table>
   </section>
     `;

@@ -4,11 +4,12 @@ import AbstractView from './AbstractView';
 import TaskListView from './TaskListView';
 import TaskView from './TaskView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewCardAdd"] }] */
 class AppView extends AbstractView {
-  constructor(allDates, rootElement) {
+  constructor(calendarData, rootElement) {
     super(rootElement);
-    this._allDates = allDates;
+    this._allDates = calendarData.dates;
+    this._calendarPeriodTasks = calendarData.tasks;
   }
 
   _findContainers() {
@@ -27,6 +28,7 @@ class AppView extends AbstractView {
     this._calendar = new CalendarView(
       calendarDate,
       tasksDate,
+      this._calendarPeriodTasks,
       this._calendarContainer
     );
     this._tasks = new TaskListView(tasksDate, this._tasksContainer);
@@ -37,6 +39,7 @@ class AppView extends AbstractView {
     this._header.onPrevButtonClick = this.onPrevButtonClick;
     this._header.onNextButtonClick = this.onNextButtonClick;
     this._calendar.onCellClick = this.onCellClick;
+    this._task.onNewCardAdd = this.onNewCardAdd;
     this._header.onCreateButtonClick = () =>
       this._task.showCreateCard(this._allDates.tasksDate);
   }
@@ -86,6 +89,8 @@ class AppView extends AbstractView {
   onSearchButtonClick() {}
 
   onCellClick() {}
+
+  onNewCardAdd() {}
 }
 
 export default AppView;

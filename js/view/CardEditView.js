@@ -2,9 +2,11 @@ import AbstractView from './AbstractView';
 import deleteTimePart from '../utils/deleteTimePart';
 import generateID from '../utils/generateID';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["getCardData"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewCardAdd"] }] */
 class CardEditView extends AbstractView {
   constructor(taskDate, parentElement, cardData = null) {
+    // isDataSend = cardData; проверка какая-то
+    // ${isDataSend ? value = cardData.taskName : ''
     super(parentElement);
     this._taskDate = deleteTimePart(taskDate);
     this._parentElement = parentElement;
@@ -30,7 +32,7 @@ class CardEditView extends AbstractView {
   _onSubmit(evt) {
     evt.preventDefault();
     const data = this._getFormData();
-    this.getCardData(data);
+    this.onNewCardAdd(data);
     this.unrender();
   }
 
@@ -214,7 +216,7 @@ class CardEditView extends AbstractView {
     this._form = null;
   }
 
-  getCardData() {}
+  onNewCardAdd() {}
 }
 
 export default CardEditView;

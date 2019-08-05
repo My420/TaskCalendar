@@ -5,7 +5,7 @@ class AppPresenter {
   constructor(rootElement) {
     this._rootElement = rootElement;
     this._model = new AppModel();
-    this._view = new AppView(this._model.monthData, this._rootElement);
+    this._view = new AppView(this._model.calendarPeriodData, this._rootElement);
   }
 
   init() {
@@ -22,6 +22,11 @@ class AppPresenter {
       const newDate = this._model.changeTasksDate(cellDate);
       this._view.changeTasksDate(newDate);
     };
+
+    this._view.onNewCardAdd = data => {
+      this._model.addNewTask(data);
+    };
+
     this._view.render();
   }
 }
