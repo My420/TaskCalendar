@@ -26,6 +26,6 @@ export const TASK_COLOR = {
   RED: 'red',
   ORANGE: 'orange',
   YELLOW: 'yellow',
-  GREEN: 'GREEN',
+  GREEN: 'green',
   YELLOWGREEN: 'yellowgreen'
 };
