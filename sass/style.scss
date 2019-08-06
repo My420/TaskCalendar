@@ -3,8 +3,7 @@
 @import 'variables.scss';
 @import 'global.scss';
 
+@import 'block/app.scss';
+@import 'block/container.scss';
 @import 'block/header.scss';
-
-.calendar__cell[data-active='true'] {
-  outline: 1px solid yellowgreen;
-}
+@import 'block/calendar.scss';

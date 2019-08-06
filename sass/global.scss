@@ -36,26 +36,6 @@ textarea {
   color: black;
 }
 
-.container {
-  width: 87.5%;
-  margin: 0 auto;
-}
-
-@media (min-width: $tablet) {
-  .container {
-    width: 94%;
-    max-width: 980px;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: $pc) {
-  .container {
-    width: 940px;
-    margin: 0 auto;
-  }
-}
-
 .visually-hidden:not(:focus):not(:active),
 input[type='checkbox'].visually-hidden,
 input[type='radio'].visually-hidden {

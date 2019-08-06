@@ -1,6 +1,7 @@
 import AbstractView from './AbstractView';
 import deleteTimePart from '../utils/deleteTimePart';
 import generateID from '../utils/generateID';
+import { TASK_COLOR } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewCardAdd"] }] */
 class CardEditView extends AbstractView {
@@ -94,68 +95,70 @@ class CardEditView extends AbstractView {
         <legend class="form__legend form__legend--colorPicker">
           Выбор цвета
         </legend>
-        <label for="color-red" class="form__legend form__legend--colorPicker"
+        <label for="color-${
+          TASK_COLOR.RED
+        }" class="form__legend form__legend--colorPicker"
           >Красный</label
         >
         <input
-          id="color-red"
+          id="color-${TASK_COLOR.RED}"
           class="form__radio form__radio--red"
           type="radio"
           name="taskColor"
-          value="red"
+          value=${TASK_COLOR.RED}
         />
 
         <label
-          for="color-orange"
+          for="color-${TASK_COLOR.ORANGE}"
           class="form__legend form__legend--colorPicker"
           >Оранжевый</label
         >
         <input
-          id="color-orange"
+          id="color-${TASK_COLOR.ORANGE}"
           class="form__radio form__radio--orange"
           type="radio"
           name="taskColor"
-          value="orange"
+          value=${TASK_COLOR.ORANGE}
         />
 
         <label
-          for="color-yellow"
+          for="color-${TASK_COLOR.YELLOW}"
           class="form__legend form__legend--colorPicker"
           >Желтый</label
         >
         <input
-          id="color-yellow"
+          id="color-${TASK_COLOR.YELLOW}"
           class="form__radio form__radio--yellow"
           type="radio"
           name="taskColor"
-          value="yellow"
+          value=${TASK_COLOR.YELLOW}
         />
 
         <label
-          for="color-green"
+          for="color-${TASK_COLOR.GREEN}"
           class="form__legend form__legend--colorPicker"
           >Зеленый</label
         >
         <input
-          id="color-green"
+          id="color-${TASK_COLOR.GREEN}"
           class="form__radio form__radio--green"
           type="radio"
           name="taskColor"
-          value="green"
+          value=${TASK_COLOR.GREEN}
           checked
         />
 
         <label
-          for="color-yellowgreen"
+          for="color-${TASK_COLOR.YELLOWGREEN}"
           class="form__legend form__legend--colorPicker"
           >Желто-зелёный</label
         >
         <input
-          id="color-yellowgreen"
+          id="color-${TASK_COLOR.YELLOWGREEN}"
           class="form__radio form__radio--yellowgreen"
           type="radio"
           name="taskColor"
-          value="yellowgreen"
+          value=${TASK_COLOR.YELLOWGREEN}
         />
       </fieldset>
       <fieldset class="form__field form__field--status">

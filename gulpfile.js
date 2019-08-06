@@ -40,7 +40,8 @@ gulp.task('style', () => {
     .pipe(server.stream())
     .pipe(minify())
     .pipe(rename('style.min.css'))
-    .pipe(gulp.dest('build/css'));
+    .pipe(gulp.dest('build/css'))
+    .pipe(server.stream());
 });
 
 gulp.task('scripts', () => {

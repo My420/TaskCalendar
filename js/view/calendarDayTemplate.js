@@ -10,11 +10,11 @@ const calendarDayTemplate = (cellDate, tasksDate, tasks) => {
   const isActive = newCellDate === newTasksDate;
 
   return `<td class="calendar__day" data-date=${newCellDate}>
-    <div class="calendar__cell" data-date=${newCellDate} data-active=${isActive}>
+    <div class="calendar__cell" data-date=${newCellDate} data-active=${isActive}>      
       <span class="calendar__day-number" data-date=${newCellDate}>${dateDate}</span>    
-      <div class="calendar__tasks" data-date=${newCellDate}>
+      <div class="calendar__task-wrapper" data-date=${newCellDate}>
         ${calendarDayTasksTemplate(dayTasks, newCellDate)}
-      </div>
+      </div>      
     </div>    
 </td>`;
 };

@@ -53,10 +53,12 @@ class AppView extends AbstractView {
   get template() {
     return `<div class="container container__task"></div>
     <div class="container container__header"></div>
-    <main class="app__main">
+    <div class="container container__main">
+    <main class="app__main">    
     <div class="container container__calendar"></div>
     <div class="container container__tasks"></div>
     </main>
+    </div>
     <div class="container container__footer"></div>
     `;
   }

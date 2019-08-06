@@ -21,3 +21,11 @@ export const DEFAULT_APP_STORAGE = {
 };
 
 export const APP_KEY = 'TASKCALENDAR';
+
+export const TASK_COLOR = {
+  RED: 'red',
+  ORANGE: 'orange',
+  YELLOW: 'yellow',
+  GREEN: 'GREEN',
+  YELLOWGREEN: 'yellowgreen'
+};

@@ -1,0 +1,28 @@
+.container {
+  width: 87.5%;
+  margin: 0 auto;
+}
+
+@media (min-width: $tablet) {
+  .container {
+    width: 94%;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: $pc) {
+  .container {
+    width: 940px;
+    margin: 0 auto;
+  }
+
+  .container__calendar {
+    width: 70%;
+  }
+
+  .container__tasks {
+    width: 30%;
+    border: 1px solid $main-color-2;
+  }
+}

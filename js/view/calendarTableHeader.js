@@ -1,9 +1,9 @@
 import { CALENDAR_DAYS_NAME } from '../utils/constant';
 
 const getTableHeader = () => {
-  const template = `<tr class="table__row">
+  const template = `<tr class="calendar__row">
         ${CALENDAR_DAYS_NAME.map(elem => {
-          return `<th class="table__header">${elem}</th>`;
+          return `<th class="calendar__header">${elem}</th>`;
         }).join('')}
     </tr>`;
 

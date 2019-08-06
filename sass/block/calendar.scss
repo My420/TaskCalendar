@@ -1,0 +1,114 @@
+.calendar__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.calendar__row {
+}
+
+.calendar__header {
+  border: 1px solid $main-color-2;
+}
+
+.calendar__day {
+  box-sizing: border-box;
+
+  width: 14.2%;
+  margin: auto;
+
+  border: 1px solid $main-color-2;
+
+  overflow: hidden;
+}
+
+.calendar__day:before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
+.calendar__row .calendar__day:last-child,
+.calendar__row .calendar__header:last-child {
+  border-right: none;
+}
+
+.calendar__cell {
+  box-sizing: border-box;
+
+  width: 100%;
+  margin: auto;
+
+  overflow: hidden;
+}
+
+.calendar__cell:before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
+.calendar__cell[data-active='true'] {
+  box-shadow: inset 0 0 4px 0 $pick-color-1;
+}
+
+.calendar__day-number {
+  box-sizing: border-box;
+
+  display: inline-block;
+  width: 100%;
+
+  padding: 2px 5px;
+
+  text-align: right;
+}
+
+.calendar__task-wrapper {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  width: 100%;
+
+  padding: 0px 3px 3px 3px;
+}
+
+.calendar__task {
+  box-sizing: border-box;
+
+  width: 15%;
+  height: auto;
+
+  margin-right: 2px;
+  margin-bottom: 2px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+}
+
+.calendar__task:before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
+.calendar__task[data-color='red'] {
+  background-color: $task-color-red;
+}
+
+.calendar__task[data-color='green'] {
+  background-color: $task-color-green;
+}
+
+.calendar__task[data-color='yellow'] {
+  background-color: $task-color-yellow;
+}
+
+.calendar__task[data-color='orange'] {
+  background-color: $task-color-orange;
+}
+
+.calendar__task[data-color='yellowgreen'] {
+  background-color: $task-color-yellowgreen;
+}
