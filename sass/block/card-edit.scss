@@ -1,0 +1,15 @@
+.card-edit {
+  box-sizing: border-box;
+
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  padding-top: 20px;
+
+  background-color: transparent;
+}

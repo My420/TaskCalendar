@@ -29,3 +29,8 @@ export const TASK_COLOR = {
   GREEN: 'green',
   YELLOWGREEN: 'yellowgreen'
 };
+
+export const TASK_STATUS = {
+  ACTIVE: 'active',
+  DONE: 'done'
+};
