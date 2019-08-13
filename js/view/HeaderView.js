@@ -13,6 +13,7 @@ class HeaderView extends AbstractView {
       <h1 class="visually-hidden">Календарь задач</h1>
       <p class="header__logo">TaskCalendar</p>
       <div class="header__inner">
+      <div class="header__cover">
       <button class="header__button header__button--create" data-target="create">
         <span class="visually-hidden">Создать задачу</span>+</button>
       <div class="header__navigation-wrapper">
@@ -21,6 +22,7 @@ class HeaderView extends AbstractView {
       <p class="header__screen">${this._chosenDate}</p>
       <button class="header__button header__button--next" data-target="next">
         <span class="visually-hidden">Следующий месяц</span>></button>
+      </div>
       </div>
       <div class="header__search-wrapper">
       <input class="header__search" type="text" placeholder="поиск..." />

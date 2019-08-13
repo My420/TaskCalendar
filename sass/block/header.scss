@@ -5,7 +5,7 @@
   width: 100%;
   height: 100px;
 
-  padding: 20px 10px;
+  padding: 20px 0px;
 
   background-color: $main-color-1;
 }
@@ -15,6 +15,7 @@
 
   font-size: 40px;
   text-align: center;
+  color: $main-color-2;
 }
 
 .header__inner {
@@ -24,6 +25,21 @@
 
   width: 100%;
   height: 50px;
+}
+
+.header__cover {
+  display: flex;
+  align-items: center;
+
+  width: 70%;
+}
+
+.header__search-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30%;
 }
 
 .header__button {
@@ -36,10 +52,25 @@
 
   background-color: transparent;
   border: none;
+  outline: none;
+}
+
+.header__button:hover {
+  color: $main-color-2;
+}
+
+.header__button:focus {
+  color: $focus-color;
+}
+
+.header__button:active {
+  color: $main-color-2;
+  opacity: 0.5;
 }
 
 .header__navigation-wrapper {
   display: flex;
+  margin-left: 170px;
 }
 
 .header__screen {
@@ -50,15 +81,73 @@
   margin: 0 5px 0 10px;
 }
 
-.header__search-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .header__search {
   width: 200px;
   height: 40px;
 
   box-sizing: border-box;
+
+  outline: none;
+  border-width: 3px;
+  border-style: solid;
+  border-color: white;
+  border-image: none;
+}
+
+.header__search:hover {
+  border-color: $main-color-2;
+}
+
+.header__search:focus {
+  box-shadow: 0 0 10px 3px $focus-color;
+}
+
+.header__search:active {
+  box-shadow: none;
+  opacity: 0.5;
+}
+
+@media (max-width: $pc) {
+  .header {
+    height: auto;
+    padding-bottom: 10px;
+  }
+
+  .header__logo {
+    display: none;
+  }
+
+  .header__inner {
+    height: auto;
+    flex-direction: column-reverse;
+  }
+
+  .header__cover {
+    position: relative;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .header__navigation-wrapper {
+    margin: 0px;
+  }
+
+  .header__search-wrapper {
+    width: 40%;
+    margin-bottom: 10px;
+  }
+
+  .header__button--search,
+  .header__search {
+    height: 30px;
+  }
+
+  .header__button--search {
+    font-size: 25px;
+  }
+  .header__button--create {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
 }
