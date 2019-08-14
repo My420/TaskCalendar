@@ -2,7 +2,8 @@ import HeaderView from './HeaderView';
 import CalendarView from './CalendarView';
 import AbstractView from './AbstractView';
 import TaskListView from './TaskListView';
-import TaskView from './TaskView';
+import ModalView from './ModalView';
+import deleteTimePart from '../utils/deleteTimePart';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewCardAdd"] }] */
 class AppView extends AbstractView {
@@ -12,8 +13,14 @@ class AppView extends AbstractView {
     this._calendarPeriodTasks = calendarData.tasks;
   }
 
+  _getTasksForTasksList(taskDate) {
+    const date = deleteTimePart(taskDate);
+    const tasks = this._calendarPeriodTasks[date];
+    return tasks;
+  }
+
   _findContainers() {
-    this._taskContainer = this.element.querySelector('.container__task');
+    this._modalContainer = this.element.querySelector('.container__modal');
     this._headerContainer = this.element.querySelector('.container__header');
     this._calendarContainer = this.element.querySelector(
       '.container__calendar'
@@ -24,6 +31,7 @@ class AppView extends AbstractView {
 
   _createChildrenView() {
     const { calendarDate, tasksDate, todayDate } = this._allDates;
+    const tasks = this._getTasksForTasksList(tasksDate);
     this._header = new HeaderView(calendarDate, this._headerContainer);
     this._calendar = new CalendarView(
       calendarDate,
@@ -32,17 +40,17 @@ class AppView extends AbstractView {
       this._calendarPeriodTasks,
       this._calendarContainer
     );
-    this._tasks = new TaskListView(tasksDate, this._tasksContainer);
-    this._task = new TaskView(this._taskContainer);
+    this._tasks = new TaskListView(tasks, this._tasksContainer);
+    this._modal = new ModalView(this._modalContainer);
   }
 
   _setChildrenViewHendlerFunction() {
     this._header.onPrevButtonClick = this.onPrevButtonClick;
     this._header.onNextButtonClick = this.onNextButtonClick;
     this._calendar.onCellClick = this.onCellClick;
-    this._task.onNewCardAdd = this.onNewCardAdd;
+    this._modal.onNewCardAdd = this.onNewCardAdd;
     this._header.onCreateButtonClick = () =>
-      this._task.showCreateCard(this._allDates.tasksDate);
+      this._modal.showCreateCard(this._allDates.tasksDate);
   }
 
   _renderChildrenView() {
@@ -52,7 +60,7 @@ class AppView extends AbstractView {
   }
 
   get template() {
-    return `<div class="container container__task"></div>
+    return `<div class="container container__modal"></div>
     <div class="container container__header"></div>
     <div class="container container__main">
     <main class="app__main">    
@@ -73,16 +81,23 @@ class AppView extends AbstractView {
 
   changeCalendarDate(newDates, newTasks) {
     this._allDates = newDates;
+    this._calendarPeriodTasks = newTasks;
     const { calendarDate, tasksDate, todayDate } = this._allDates;
     this._header.changeDisplayedDate(calendarDate);
-    this._calendar.changeCalendar(calendarDate, tasksDate, todayDate, newTasks);
+    this._calendar.changeCalendar(
+      calendarDate,
+      tasksDate,
+      todayDate,
+      this._calendarPeriodTasks
+    );
     this._tasks.changeTasks(tasksDate);
   }
 
   changeTasksDate(newDate) {
     this._allDates.tasksDate = newDate;
+    const tasks = this._getTasksForTasksList(newDate);
     this._calendar.changeActiveCell(newDate);
-    this._tasks.changeTasks(newDate);
+    this._tasks.changeTasks(tasks);
   }
 
   onPrevButtonClick() {}

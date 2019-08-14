@@ -2,7 +2,7 @@ import AbstractView from './AbstractView';
 import CardEditView from './CardEditView';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewCardAdd"] }] */
-class TaskView extends AbstractView {
+class ModalView extends AbstractView {
   constructor(parentElement) {
     super(parentElement);
     this._parentElement = parentElement;
@@ -26,4 +26,4 @@ class TaskView extends AbstractView {
   onNewCardAdd() {}
 }
 
-export default TaskView;
+export default ModalView;

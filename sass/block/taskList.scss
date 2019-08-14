@@ -1,0 +1,97 @@
+.taskList__list {
+  width: 100%;
+  max-height: 599px;
+  padding: 5px;
+
+  box-sizing: border-box;
+  list-style: none;
+
+  line-height: 20px;
+
+  overflow: hidden;
+}
+
+.taskList__item {
+  height: 50px;
+  margin-bottom: 5px;
+
+  border: 1px solid $main-color-2;
+}
+
+.taskList__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+}
+
+.taskList__inner {
+  width: 92%;
+  height: 42px;
+  overflow: hidden;
+}
+
+.taskList__color {
+  height: 100%;
+  width: 5%;
+  background: white;
+}
+
+.taskList__color[data-color='red'] {
+  background-color: $task-color-red;
+}
+
+.taskList__color[data-color='green'] {
+  background-color: $task-color-green;
+}
+
+.taskList__color[data-color='yellow'] {
+  background-color: $task-color-yellow;
+}
+
+.taskList__color[data-color='orange'] {
+  background-color: $task-color-orange;
+}
+
+.taskList__color[data-color='yellowgreen'] {
+  background-color: $task-color-yellowgreen;
+}
+
+.taskList__color[data-status='done'] {
+  background-color: $done-color;
+}
+
+.taskList__name[data-status='done'] {
+  text-decoration-line: line-through;
+  text-decoration-style: double;
+  color: $done-color;
+}
+
+.taskList__message {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: $pc) {
+  .taskList__list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    max-height: 100%;
+  }
+
+  .taskList__item {
+    width: 48%;
+  }
+}
+
+@media (max-width: $tablet) {
+  .taskList__item {
+    width: 100%;
+  }
+}

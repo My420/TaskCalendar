@@ -9,7 +9,6 @@ const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const server = require('browser-sync').create();
-const mqpacker = require('css-mqpacker');
 const minify = require('gulp-csso');
 const rename = require('gulp-rename');
 const imagemin = require('gulp-imagemin');
@@ -32,8 +31,7 @@ gulp.task('style', () => {
             'last 2 Opera versions',
             'last 2 Edge versions'
           ]
-        }),
-        mqpacker({ sort: true })
+        })
       ])
     )
     .pipe(gulp.dest('build/css'))

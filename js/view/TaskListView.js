@@ -1,24 +1,39 @@
 import AbstractView from './AbstractView';
+import taskItemTemplate from './taskItemTemplate';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind"]}] */
 class TaskListView extends AbstractView {
-  constructor(listDate, parentElement) {
+  constructor(tasks, parentElement) {
     super(parentElement);
-    this._listDate = listDate;
+    this._tasks = tasks;
+  }
+
+  _getListTemplate() {
+    if (this._tasks) {
+      const template = this._tasks
+        .map(elem => {
+          return taskItemTemplate(elem);
+        })
+        .join('');
+
+      return template;
+    }
+
+    return '<p class="taskList__message">На сегодня задач нет</p >';
   }
 
   get template() {
     return `
       <section class="taskList">
       <h2 class="visually-hidden">Список дел</h2>
-      <p class="taskList__date">${this._listDate}</p>      
+      <ul class="taskList__list">${this._getListTemplate()}</ul>     
     </section>
       `;
   }
 
-  changeTasks(newDate) {
+  changeTasks(newTaks) {
     this.unrender();
-    this._listDate = newDate;
+    this._tasks = newTaks;
     this.render();
   }
 

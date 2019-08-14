@@ -92,6 +92,7 @@
 
 .calendar__task {
   box-sizing: border-box;
+  flex-shrink: 0;
 
   width: 14.3%;
   height: auto;
@@ -148,5 +149,37 @@
   .calendar__row .calendar__day:last-child,
   .calendar__row .calendar__header:last-child {
     border-right: 1px solid $main-color-2;
+  }
+}
+
+@media (max-width: $tablet) {
+  .calendar__task-wrapper {
+    padding: 0px 2px 2px 2px;
+  }
+
+  .calendar__day-number {
+    font-size: 15px;
+    line-height: 15px;
+  }
+
+  .calendar__task {
+    width: 12%;
+  }
+}
+
+@media (max-width: 450px) {
+  .calendar__day-number {
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  .calendar__task {
+    width: 13%;
+  }
+}
+
+@media (max-width: $mobile) {
+  .calendar__task-wrapper {
+    padding: 0px 1px 1px 1px;
   }
 }
