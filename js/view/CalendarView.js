@@ -4,10 +4,17 @@ import deleteTimePart from '../utils/deleteTimePart';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind","onCellClick"]}] */
 class CalendarView extends AbstractView {
-  constructor(calendarDate, tasksDate, calendarPeriodTasks, parentElement) {
+  constructor(
+    calendarDate,
+    tasksDate,
+    todayDate,
+    calendarPeriodTasks,
+    parentElement
+  ) {
     super(parentElement);
     this._calendarDate = calendarDate;
     this._tasksDate = tasksDate;
+    this._todayDate = todayDate;
     this._tasks = calendarPeriodTasks;
     this._onUserClick = this._onUserClick.bind(this);
   }
@@ -20,6 +27,7 @@ class CalendarView extends AbstractView {
         ${getCalendarTemplate(
           this._calendarDate,
           this._tasksDate,
+          this._todayDate,
           this._tasks
         )}  
     </table>
@@ -29,7 +37,9 @@ class CalendarView extends AbstractView {
 
   _onUserClick(evt) {
     const cellDate = evt.target.dataset.date;
-    this.onCellClick(cellDate);
+    if (cellDate) {
+      this.onCellClick(cellDate);
+    }
   }
 
   bind() {
@@ -57,10 +67,11 @@ class CalendarView extends AbstractView {
     this._tasksDate = tasksDate;
   }
 
-  changeCalendar(newDate, tasksDate, newTasks) {
+  changeCalendar(newDate, tasksDate, todayDate, newTasks) {
     this.unrender();
     this._calendarDate = newDate;
     this._tasksDate = tasksDate;
+    this._todayDate = todayDate;
     this._tasks = newTasks;
     this.render();
   }

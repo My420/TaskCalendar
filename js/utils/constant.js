@@ -1,6 +1,6 @@
 export const CALENDAR_DAYS_NAME = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
-export const CALENDAR_ROW_AMOUNT = 5;
+export const CALENDAR_ROW_AMOUNT = 6;
 export const CALENDAR_COLUMN_AMOUNT = 7;
 export const CALENDAR_DAY_AMOUNT = CALENDAR_COLUMN_AMOUNT * CALENDAR_ROW_AMOUNT;
 

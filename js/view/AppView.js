@@ -23,11 +23,12 @@ class AppView extends AbstractView {
   }
 
   _createChildrenView() {
-    const { calendarDate, tasksDate } = this._allDates;
+    const { calendarDate, tasksDate, todayDate } = this._allDates;
     this._header = new HeaderView(calendarDate, this._headerContainer);
     this._calendar = new CalendarView(
       calendarDate,
       tasksDate,
+      todayDate,
       this._calendarPeriodTasks,
       this._calendarContainer
     );
@@ -72,9 +73,9 @@ class AppView extends AbstractView {
 
   changeCalendarDate(newDates, newTasks) {
     this._allDates = newDates;
-    const { calendarDate, tasksDate } = this._allDates;
+    const { calendarDate, tasksDate, todayDate } = this._allDates;
     this._header.changeDisplayedDate(calendarDate);
-    this._calendar.changeCalendar(calendarDate, tasksDate, newTasks);
+    this._calendar.changeCalendar(calendarDate, tasksDate, todayDate, newTasks);
     this._tasks.changeTasks(tasksDate);
   }
 
