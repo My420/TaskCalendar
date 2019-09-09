@@ -23,7 +23,9 @@ class AppModel {
 
   changeTasksDate(newDate) {
     const newTaskDate = this._date.setTasksDate(newDate);
-    return newTaskDate;
+    const dayTasks = this._tasks.getTasksForDay(newDate);
+
+    return { newTaskDate, dayTasks };
   }
 
   get calendarPeriodData() {
@@ -34,7 +36,7 @@ class AppModel {
   }
 
   addNewTask(task) {
-    this._tasks.addNewTask(task);
+    return this._tasks.addNewTask(task);
   }
 }
 

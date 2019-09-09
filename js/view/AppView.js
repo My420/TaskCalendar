@@ -90,14 +90,19 @@ class AppView extends AbstractView {
       todayDate,
       this._calendarPeriodTasks
     );
-    this._tasks.changeTasks(tasksDate);
+
+    this._tasks.changeTasks(this._getTasksForTasksList(tasksDate));
   }
 
-  changeTasksDate(newDate) {
-    this._allDates.tasksDate = newDate;
-    const tasks = this._getTasksForTasksList(newDate);
-    this._calendar.changeActiveCell(newDate);
-    this._tasks.changeTasks(tasks);
+  addTask(task) {
+    this._calendar.addTaskToCell(task);
+    this._tasks.addTaskToList(task);
+  }
+
+  changeTasksDate(newTaskDate, dayTasks) {
+    this._allDates.tasksDate = newTaskDate;
+    this._calendar.changeActiveCell(newTaskDate);
+    this._tasks.changeTasks(dayTasks);
   }
 
   onPrevButtonClick() {}

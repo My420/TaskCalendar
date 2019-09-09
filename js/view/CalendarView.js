@@ -1,6 +1,7 @@
 import AbstractView from './AbstractView';
 import getCalendarTemplate from './calendarTemplate';
 import deleteTimePart from '../utils/deleteTimePart';
+import calendarDayTasksTemplate from './calendarDayTasksTemplate';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind","onCellClick"]}] */
 class CalendarView extends AbstractView {
@@ -42,6 +43,14 @@ class CalendarView extends AbstractView {
     }
   }
 
+  _findTasksContainerByDate(date) {
+    const cell = this._table.querySelector(
+      `.calendar__cell[data-date='${date}']`
+    );
+    const tasksContainer = cell.querySelector('.calendar__task-wrapper');
+    return tasksContainer;
+  }
+
   bind() {
     this._table = this.element.querySelector('.calendar__table');
     this._table.addEventListener('click', this._onUserClick);
@@ -74,6 +83,13 @@ class CalendarView extends AbstractView {
     this._todayDate = todayDate;
     this._tasks = newTasks;
     this.render();
+  }
+
+  addTaskToCell(task) {
+    const { taskDate } = task;
+    const newTaskTemplate = calendarDayTasksTemplate([task]);
+    const tasksContainer = this._findTasksContainerByDate(taskDate);
+    tasksContainer.insertAdjacentHTML('beforeend', newTaskTemplate);
   }
 
   onCellClick() {}

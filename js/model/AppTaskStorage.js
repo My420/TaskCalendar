@@ -61,6 +61,7 @@ class AppTaskStorage {
       this._taskStore[date.month][date.year] = { [date.date]: [task] };
     }
     this._updateLocalStorage();
+    return task;
   }
 }
 

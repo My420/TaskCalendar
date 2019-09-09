@@ -19,12 +19,13 @@ class AppPresenter {
     };
 
     this._view.onCellClick = cellDate => {
-      const newDate = this._model.changeTasksDate(cellDate);
-      this._view.changeTasksDate(newDate);
+      const { newTaskDate, dayTasks } = this._model.changeTasksDate(cellDate);
+      this._view.changeTasksDate(newTaskDate, dayTasks);
     };
 
     this._view.onNewCardAdd = data => {
-      this._model.addNewTask(data);
+      const task = this._model.addNewTask(data);
+      this._view.addTask(task);
     };
 
     this._view.render();

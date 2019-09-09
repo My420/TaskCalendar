@@ -6,6 +6,7 @@ class TaskListView extends AbstractView {
   constructor(tasks, parentElement) {
     super(parentElement);
     this._tasks = tasks;
+    this._isEmpty = false;
   }
 
   _getListTemplate() {
@@ -18,8 +19,12 @@ class TaskListView extends AbstractView {
 
       return template;
     }
+    this._isEmpty = true;
+    return '<li class="taskList__message">На сегодня задач нет</li>';
+  }
 
-    return '<p class="taskList__message">На сегодня задач нет</p >';
+  _deleteEmptyMessage() {
+    this._taskList.querySelector('.taskList__message').remove();
   }
 
   get template() {
@@ -31,13 +36,25 @@ class TaskListView extends AbstractView {
       `;
   }
 
-  changeTasks(newTaks) {
+  changeTasks(newTasks) {
     this.unrender();
-    this._tasks = newTaks;
+    this._tasks = newTasks;
+    this._isEmpty = false;
     this.render();
   }
 
-  bind() {}
+  addTaskToList(task) {
+    if (this._isEmpty) {
+      this._deleteEmptyMessage();
+      this._isEmpty = false;
+    }
+    const newTask = taskItemTemplate(task);
+    this._taskList.insertAdjacentHTML('beforeend', newTask);
+  }
+
+  bind() {
+    this._taskList = this.element.querySelector('.taskList__list');
+  }
 
   unbind() {}
 }
