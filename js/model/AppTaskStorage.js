@@ -7,6 +7,7 @@ import LocalStorage from './LocalStorage';
 import dateToObject from '../utils/dateToObject';
 import setDayOnMonday from '../utils/setDayOnMonday';
 import deleteTimePart from '../utils/deleteTimePart';
+import findTaskIndex from '../utils/findTaskIndex';
 
 class AppTaskStorage {
   constructor() {
@@ -69,6 +70,22 @@ class AppTaskStorage {
     for (let i = 0; i < dayTasks.length; i += 1) {
       if (dayTasks[i].taskId === id) {
         return { ...dayTasks[i] };
+      }
+    }
+
+    return null;
+  }
+
+  deleteTask(taskDate, id) {
+    const date = dateToObject(taskDate);
+
+    if (this._taskStore[date.month][date.year]) {
+      if (this._taskStore[date.month][date.year][date.date]) {
+        const dayTasks = this._taskStore[date.month][date.year][date.date];
+        const deleteTaskIndex = findTaskIndex(dayTasks, id);
+        const deletedTasks = dayTasks.splice(deleteTaskIndex, 1);
+        this._updateLocalStorage();
+        return deletedTasks[0];
       }
     }
 

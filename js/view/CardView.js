@@ -1,6 +1,6 @@
 import AbstractView from './AbstractView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["changeCard"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["changeCard", "deleteTask", "onTaskDelete"] }] */
 class CardView extends AbstractView {
   constructor(task, parentElement) {
     super(parentElement);
@@ -16,6 +16,11 @@ class CardView extends AbstractView {
         this.unrender();
       } else if (action === 'change') {
         this.changeCard(this._task);
+        this.unrender();
+      } else if (action === 'delete') {
+        const { taskId, taskDate } = this._task;
+        this.onTaskDelete(taskDate, taskId);
+        this.unrender();
       }
     }
   }
@@ -44,6 +49,9 @@ class CardView extends AbstractView {
             <button class="card__button card__button--change" type="button" data-action="change">
             Изменить
             </button>
+            <button class="card__button card__button--delete" type="button" data-action="delete">
+            Удалить
+            </button>
             <button class="card__button card__button--cancel" type="button" data-action="cancel">
             Отменить
             </button>
@@ -63,6 +71,8 @@ class CardView extends AbstractView {
   }
 
   changeCard() {}
+
+  onTaskDelete() {}
 }
 
 export default CardView;

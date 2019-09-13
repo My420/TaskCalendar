@@ -92,6 +92,14 @@ class CalendarView extends AbstractView {
     tasksContainer.insertAdjacentHTML('beforeend', newTaskTemplate);
   }
 
+  deleteTaskFromCell(taskDate, taskId) {
+    const tasksContainer = this._findTasksContainerByDate(taskDate);
+    const task = tasksContainer.querySelector(
+      `.calendar__task[data-id="${taskId}"]`
+    );
+    task.remove();
+  }
+
   onCellClick() {}
 }
 

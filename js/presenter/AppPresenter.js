@@ -33,6 +33,12 @@ class AppPresenter {
       this._view.showTaskCard(task);
     };
 
+    this._view.onTaskDelete = (date, id) => {
+      const deletedTask = this._model.deleteTask(date, id);
+      const { taskDate, taskId } = deletedTask;
+      this._view.deleteTask(taskDate, taskId);
+    };
+
     this._view.render();
   }
 }

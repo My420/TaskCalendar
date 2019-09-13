@@ -1,17 +1,18 @@
 import AbstractView from './AbstractView';
 import taskItemTemplate from './taskItemTemplate';
+import findTaskIndex from '../utils/findTaskIndex';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick",""]}] */
 class TaskListView extends AbstractView {
   constructor(tasks, parentElement) {
     super(parentElement);
-    this._tasks = tasks;
-    this._isEmpty = false;
+    this._tasks = tasks || [];
+    this._emptyMessageTemplate = '<li class="taskList__message">Нет задач</li>';
     this._onUserClick = this._onUserClick.bind(this);
   }
 
   _getListTemplate() {
-    if (this._tasks) {
+    if (this._tasks.length > 0) {
       const template = this._tasks
         .map(elem => {
           return taskItemTemplate(elem);
@@ -20,12 +21,16 @@ class TaskListView extends AbstractView {
 
       return template;
     }
-    this._isEmpty = true;
-    return '<li class="taskList__message">На сегодня задач нет</li>';
+
+    return this._emptyMessageTemplate;
   }
 
   _deleteEmptyMessage() {
     this._taskList.querySelector('.taskList__message').remove();
+  }
+
+  _showEmptyMessage() {
+    this._taskList.insertAdjacentHTML('beforeend', this._emptyMessageTemplate);
   }
 
   _onUserClick(evt) {
@@ -47,18 +52,29 @@ class TaskListView extends AbstractView {
 
   changeTasks(newTasks) {
     this.unrender();
-    this._tasks = newTasks;
-    this._isEmpty = false;
+    this._tasks = newTasks || [];
     this.render();
   }
 
   addTaskToList(task) {
-    if (this._isEmpty) {
+    if (this._tasks.length === 0) {
       this._deleteEmptyMessage();
-      this._isEmpty = false;
     }
+    this._tasks.push(task);
     const newTask = taskItemTemplate(task);
     this._taskList.insertAdjacentHTML('beforeend', newTask);
+  }
+
+  deleteTaskFromList(taskId) {
+    const task = this._taskList.querySelector(
+      `.taskList__item[data-id="${taskId}"]`
+    );
+    task.remove();
+    const deleteTaskIndex = findTaskIndex(this._tasks, taskId);
+    this._tasks.splice(deleteTaskIndex, 1);
+    if (this._tasks.length === 0) {
+      this._showEmptyMessage();
+    }
   }
 
   bind() {
