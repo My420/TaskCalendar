@@ -1,12 +1,13 @@
 import AbstractView from './AbstractView';
 import taskItemTemplate from './taskItemTemplate';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind"]}] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick",""]}] */
 class TaskListView extends AbstractView {
   constructor(tasks, parentElement) {
     super(parentElement);
     this._tasks = tasks;
     this._isEmpty = false;
+    this._onUserClick = this._onUserClick.bind(this);
   }
 
   _getListTemplate() {
@@ -25,6 +26,14 @@ class TaskListView extends AbstractView {
 
   _deleteEmptyMessage() {
     this._taskList.querySelector('.taskList__message').remove();
+  }
+
+  _onUserClick(evt) {
+    if (evt.target.className === 'taskList__screen') {
+      const { date } = evt.target.dataset;
+      const { id } = evt.target.dataset;
+      this.onTaskClick(date, id);
+    }
   }
 
   get template() {
@@ -54,9 +63,14 @@ class TaskListView extends AbstractView {
 
   bind() {
     this._taskList = this.element.querySelector('.taskList__list');
+    this._taskList.addEventListener('click', this._onUserClick);
   }
 
-  unbind() {}
+  unbind() {
+    this._taskList.removeEventListener('click', this._onUserClick);
+  }
+
+  onTaskClick() {}
 }
 
 export default TaskListView;

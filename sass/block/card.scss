@@ -1,0 +1,122 @@
+.card {
+  box-sizing: border-box;
+
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  padding-top: 20px;
+
+  background-color: transparent;
+}
+
+.card__info {
+  min-width: 300px;
+  max-width: 400px;
+
+  padding: 10px;
+  padding-bottom: 20px;
+
+  background-color: $main-color-1;
+
+  border: 3px solid $main-color-2;
+
+  margin: 0 auto;
+
+  outline: none;
+}
+
+.card__date,
+.card__name,
+.card__description {
+  display: inline-block;
+  width: 100%;
+
+  margin-bottom: 10px;
+
+  text-align: center;
+}
+
+.card__controls {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+  padding-top: 20px;
+
+  border-top: 2px solid $main-color-2;
+}
+
+.card__button {
+  margin: 0;
+  padding: 5px 10px;
+
+  border: 2px solid $main-color-2;
+  border-radius: 5px 5px;
+  background-color: transparent;
+
+  color: $text-color-main;
+
+  outline: none;
+}
+
+.card__button:hover {
+  border-color: $text-color-main;
+}
+
+.card__button:focus {
+  box-shadow: 0 0 10px 3px $focus-color;
+}
+
+.card__button:active {
+  box-shadow: none;
+  opacity: 0.5;
+}
+
+.card__color {
+  width: 100%;
+  height: 5px;
+
+  margin-bottom: 5px;
+
+  background-color: white;
+}
+
+.card__color[data-color='orange'] {
+  background-color: $task-color-orange;
+}
+
+.card__color[data-color='red'] {
+  background-color: $task-color-red;
+}
+
+.card__color[data-color='yellow'] {
+  background-color: $task-color-yellow;
+}
+
+.card__color[data-color='yellowgreen'] {
+  background-color: $task-color-yellowgreen;
+}
+
+.card__color[data-color='green'] {
+  background-color: $task-color-green;
+}
+
+.card__color[data-='green'] {
+  background-color: $task-color-green;
+}
+
+.card__color[data-status='done'] {
+  background-color: $done-color;
+}
+
+.card__info[data-status='done'] .card__name,
+.card__info[data-status='done'] .card__description {
+  text-decoration-line: line-through;
+  text-decoration-style: double;
+  color: $done-color;
+}

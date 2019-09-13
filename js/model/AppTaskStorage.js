@@ -22,7 +22,6 @@ class AppTaskStorage {
 
   getTasksForDay(dayDate) {
     const date = dateToObject(dayDate);
-
     if (this._taskStore[date.month][date.year]) {
       if (this._taskStore[date.month][date.year][date.date]) {
         return [...this._taskStore[date.month][date.year][date.date]];
@@ -62,6 +61,18 @@ class AppTaskStorage {
     }
     this._updateLocalStorage();
     return task;
+  }
+
+  getTask(date, id) {
+    const dayTasks = this.getTasksForDay(date);
+
+    for (let i = 0; i < dayTasks.length; i += 1) {
+      if (dayTasks[i].taskId === id) {
+        return { ...dayTasks[i] };
+      }
+    }
+
+    return null;
   }
 }
 

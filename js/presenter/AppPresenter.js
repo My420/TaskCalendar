@@ -28,6 +28,11 @@ class AppPresenter {
       this._view.addTask(task);
     };
 
+    this._view.onTaskClick = (date, id) => {
+      const task = this._model.getTask(date, id);
+      this._view.showTaskCard(task);
+    };
+
     this._view.render();
   }
 }

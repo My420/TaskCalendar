@@ -38,6 +38,10 @@ class AppModel {
   addNewTask(task) {
     return this._tasks.addNewTask(task);
   }
+
+  getTask(date, id) {
+    return this._tasks.getTask(date, id);
+  }
 }
 
 export default AppModel;
