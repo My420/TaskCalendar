@@ -46,6 +46,10 @@ class AppModel {
   deleteTask(date, id) {
     return this._tasks.deleteTask(date, id);
   }
+
+  changeTask(newTask) {
+    return this._tasks.changeTask(newTask);
+  }
 }
 
 export default AppModel;

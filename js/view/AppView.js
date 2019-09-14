@@ -5,7 +5,7 @@ import TaskListView from './TaskListView';
 import ModalView from './ModalView';
 import deleteTimePart from '../utils/deleteTimePart';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onTaskDelete","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewCardAdd", "onTaskClick"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onTaskDelete","onTaskChange","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewCardAdd", "onTaskClick"] }] */
 class AppView extends AbstractView {
   constructor(calendarData, rootElement) {
     super(rootElement);
@@ -53,6 +53,7 @@ class AppView extends AbstractView {
     this._calendar.onCellClick = this.onCellClick;
     this._modal.onNewCardAdd = this.onNewCardAdd;
     this._modal.onTaskDelete = this.onTaskDelete;
+    this._modal.onTaskChange = this.onTaskChange;
     this._tasks.onTaskClick = this.onTaskClick;
   }
 
@@ -128,6 +129,8 @@ class AppView extends AbstractView {
   onNewCardAdd() {}
 
   onTaskDelete() {}
+
+  onTaskChange() {}
 
   // calendar
   onCellClick() {}

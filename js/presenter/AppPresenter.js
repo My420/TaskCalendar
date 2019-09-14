@@ -39,6 +39,15 @@ class AppPresenter {
       this._view.deleteTask(taskDate, taskId);
     };
 
+    this._view.onTaskChange = data => {
+      const oldTaskDate = data.oldTask.taskDate;
+      const newTaskDate = data.newTask.taskDate;
+      if (oldTaskDate === newTaskDate) {
+        const newTask = this._model.changeTask(data.newTask);
+        console.log(newTask);
+      }
+    };
+
     this._view.render();
   }
 }

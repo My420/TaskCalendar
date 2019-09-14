@@ -91,6 +91,24 @@ class AppTaskStorage {
 
     return null;
   }
+
+  changeTask(newTask) {
+    const task = { ...newTask };
+    const { taskDate, taskId } = newTask;
+    const date = dateToObject(taskDate);
+
+    if (this._taskStore[date.month][date.year]) {
+      if (this._taskStore[date.month][date.year][date.date]) {
+        const dayTasks = this._taskStore[date.month][date.year][date.date];
+        const changeTaskIndex = findTaskIndex(dayTasks, taskId);
+        dayTasks[changeTaskIndex] = task;
+        this._updateLocalStorage();
+        return { ...dayTasks[changeTaskIndex] };
+      }
+    }
+
+    return null;
+  }
 }
 
 export default AppTaskStorage;

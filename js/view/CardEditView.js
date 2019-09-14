@@ -3,12 +3,11 @@ import deleteTimePart from '../utils/deleteTimePart';
 import generateID from '../utils/generateID';
 import { TASK_COLOR, TASK_STATUS } from '../utils/constant';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewCardAdd"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewCardAdd", "onChangeCard","onTaskChange"] }] */
 class CardEditView extends AbstractView {
   constructor(taskDate, parentElement, cardData = null) {
-    // isDataSend = cardData; проверка какая-то
-    // ${isDataSend ? value = cardData.taskName : ''
     super(parentElement);
+    this._isChangeTask = !!cardData;
     this._taskDate = deleteTimePart(taskDate);
     this._parentElement = parentElement;
     this._cardData = cardData;
@@ -33,15 +32,35 @@ class CardEditView extends AbstractView {
   _onSubmit(evt) {
     evt.preventDefault();
     const data = this._getFormData();
-    this.onNewCardAdd(data);
-    this.unrender();
+    if (this._isChangeTask) {
+      const oldTask = this._cardData;
+      const newTask = data;
+      this.onTaskChange({ oldTask, newTask });
+      this.unrender();
+    } else {
+      this.onNewCardAdd(data);
+      this.unrender();
+    }
   }
 
   get template() {
+    const title = this._isChangeTask ? 'Изменить задачу' : 'Создать задачу';
+    const id = this._isChangeTask ? this._cardData.taskId : generateID();
+    const taskName = this._isChangeTask ? this._cardData.taskName : '';
+    const taskDescription = this._isChangeTask
+      ? this._cardData.taskDescription
+      : '';
+    const color = this._isChangeTask
+      ? this._cardData.taskColor
+      : TASK_COLOR.GREEN;
+    const status = this._isChangeTask
+      ? this._cardData.taskStatus
+      : TASK_STATUS.ACTIVE;
+
     return `<section class="card-edit">
-    <h2 class="visually-hidden">Создать задачу</h2>
+    <h2 class="visually-hidden">${title}</h2>
     <form class="card-edit__form form" action="somephpfile.php">
-      <p class="form__title">Создать задачу:</p>
+      <p class="form__title">${title}:</p>
       <fieldset class="form__field form__field--information">
         <legend class="form__legend form__legend--information visually-hidden">
           Основная информация
@@ -52,7 +71,7 @@ class CardEditView extends AbstractView {
           class="form__id visually-hidden"
           type="text"
           name="taskId"
-          value="${generateID()}"
+          value="${id}"
           required
           tabindex="-1"       
         />
@@ -78,8 +97,8 @@ class CardEditView extends AbstractView {
           id="name"
           class="form__name"
           type="text"
-          name="taskName"
-          placeholder=""
+          name="taskName"          
+          value="${taskName}"         
           required          
         />
         <div class='form__label-wrapper'>
@@ -93,8 +112,8 @@ class CardEditView extends AbstractView {
           id="description"
           class="form__description"
           name="taskDescription"
-          placeholder="дополнительное описание"          
-        ></textarea>
+          placeholder="дополнительное описание"                 
+        >${taskDescription}</textarea>
       </fieldset>
 
       <fieldset class="form__field form__field--colorPicker">
@@ -107,7 +126,8 @@ class CardEditView extends AbstractView {
           class="form__radio form__radio--red visually-hidden"
           type="radio"
           name="taskColor"
-          value=${TASK_COLOR.RED}          
+          value=${TASK_COLOR.RED}
+          ${color === TASK_COLOR.RED ? 'checked' : ''}    
         />
         <label for="color-${
           TASK_COLOR.RED
@@ -120,6 +140,7 @@ class CardEditView extends AbstractView {
           type="radio"
           name="taskColor"
           value=${TASK_COLOR.ORANGE}
+          ${color === TASK_COLOR.ORANGE ? 'checked' : ''}  
         />
         <label
           for="color-${TASK_COLOR.ORANGE}"
@@ -132,6 +153,7 @@ class CardEditView extends AbstractView {
           type="radio"
           name="taskColor"
           value=${TASK_COLOR.YELLOW}
+          ${color === TASK_COLOR.YELLOW ? 'checked' : ''}  
         />
         <label
           for="color-${TASK_COLOR.YELLOW}"
@@ -144,7 +166,7 @@ class CardEditView extends AbstractView {
           type="radio"
           name="taskColor"
           value=${TASK_COLOR.GREEN}
-          checked
+          ${color === TASK_COLOR.GREEN ? 'checked' : ''}  
         />
         <label
           for="color-${TASK_COLOR.GREEN}"
@@ -157,6 +179,7 @@ class CardEditView extends AbstractView {
           type="radio"
           name="taskColor"
           value=${TASK_COLOR.YELLOWGREEN}
+          ${color === TASK_COLOR.YELLOWGREEN ? 'checked' : ''}  
         />
         <label
           for="color-${TASK_COLOR.YELLOWGREEN}"
@@ -176,7 +199,7 @@ class CardEditView extends AbstractView {
           type="radio"
           name="taskStatus"
           value=${TASK_STATUS.ACTIVE}
-          checked          
+          ${status === TASK_STATUS.ACTIVE ? 'checked' : ''}           
         />
         <label for="status-${
           TASK_STATUS.ACTIVE
@@ -189,6 +212,7 @@ class CardEditView extends AbstractView {
           type="radio"
           name="taskStatus"
           value=${TASK_STATUS.DONE}
+          ${status === TASK_STATUS.DONE ? 'checked' : ''}  
         />
          <label for="status-${
            TASK_STATUS.DONE
@@ -231,6 +255,10 @@ class CardEditView extends AbstractView {
   }
 
   onNewCardAdd() {}
+
+  onChangeCard() {}
+
+  onTaskChange() {}
 }
 
 export default CardEditView;
