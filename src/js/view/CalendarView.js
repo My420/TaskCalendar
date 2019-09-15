@@ -51,6 +51,14 @@ class CalendarView extends AbstractView {
     return tasksContainer;
   }
 
+  _findTask(date, id) {
+    const tasksContainer = this._findTasksContainerByDate(date);
+    const task = tasksContainer.querySelector(
+      `.calendar__task[data-id="${id}"]`
+    );
+    return task;
+  }
+
   bind() {
     this._table = this.element.querySelector('.calendar__table');
     this._table.addEventListener('click', this._onUserClick);
@@ -93,11 +101,15 @@ class CalendarView extends AbstractView {
   }
 
   deleteTaskFromCell(taskDate, taskId) {
-    const tasksContainer = this._findTasksContainerByDate(taskDate);
-    const task = tasksContainer.querySelector(
-      `.calendar__task[data-id="${taskId}"]`
-    );
+    const task = this._findTask(taskDate, taskId);
     task.remove();
+  }
+
+  changeTaskInCell(newTask) {
+    const { taskDate, taskId, taskStatus, taskColor } = newTask;
+    const task = this._findTask(taskDate, taskId);
+    task.dataset.color = taskColor;
+    task.dataset.status = taskStatus;
   }
 
   onCellClick() {}

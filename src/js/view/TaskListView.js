@@ -1,6 +1,7 @@
 import AbstractView from './AbstractView';
 import taskItemTemplate from './taskItemTemplate';
 import findTaskIndex from '../utils/findTaskIndex';
+import createElement from '../utils/createElement';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick",""]}] */
 class TaskListView extends AbstractView {
@@ -9,6 +10,10 @@ class TaskListView extends AbstractView {
     this._tasks = tasks || [];
     this._emptyMessageTemplate = '<li class="taskList__message">Нет задач</li>';
     this._onUserClick = this._onUserClick.bind(this);
+  }
+
+  _findTask(id) {
+    return this._taskList.querySelector(`.taskList__item[data-id="${id}"]`);
   }
 
   _getListTemplate() {
@@ -66,15 +71,20 @@ class TaskListView extends AbstractView {
   }
 
   deleteTaskFromList(taskId) {
-    const task = this._taskList.querySelector(
-      `.taskList__item[data-id="${taskId}"]`
-    );
+    const task = this._findTask(taskId);
     task.remove();
     const deleteTaskIndex = findTaskIndex(this._tasks, taskId);
     this._tasks.splice(deleteTaskIndex, 1);
     if (this._tasks.length === 0) {
       this._showEmptyMessage();
     }
+  }
+
+  changeTask(newTask) {
+    const { taskId } = newTask;
+    const newTaskElement = createElement(taskItemTemplate(newTask));
+    const oldTaskElement = this._findTask(taskId);
+    oldTaskElement.replaceWith(newTaskElement);
   }
 
   bind() {

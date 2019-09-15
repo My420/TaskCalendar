@@ -50,6 +50,15 @@ class AppModel {
   changeTask(newTask) {
     return this._tasks.changeTask(newTask);
   }
+
+  migrateTask(data) {
+    const { oldTask, newTask } = data;
+    const { taskDate, taskId } = oldTask;
+    const deletedTask = this.deleteTask(taskDate, taskId);
+    const addedTask = this.addNewTask(newTask);
+
+    return { deletedTask, addedTask };
+  }
 }
 
 export default AppModel;

@@ -4,6 +4,7 @@ import AbstractView from './AbstractView';
 import TaskListView from './TaskListView';
 import ModalView from './ModalView';
 import deleteTimePart from '../utils/deleteTimePart';
+import compareUpToMonth from '../utils/compareUpToMonth';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onTaskDelete","onTaskChange","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewCardAdd", "onTaskClick"] }] */
 class AppView extends AbstractView {
@@ -116,6 +117,21 @@ class AppView extends AbstractView {
   deleteTask(taskDate, taskId) {
     this._calendar.deleteTaskFromCell(taskDate, taskId);
     this._tasks.deleteTaskFromList(taskId);
+  }
+
+  changeTask(newTask) {
+    this._calendar.changeTaskInCell(newTask);
+    this._tasks.changeTask(newTask);
+  }
+
+  migrateTask(data) {
+    const { deletedTask, addedTask } = data;
+    const newTaskDate = addedTask.taskDate;
+    const { taskDate, taskId } = deletedTask;
+    this.deleteTask(taskDate, taskId);
+    if (compareUpToMonth(taskDate, newTaskDate)) {
+      this._calendar.addTaskToCell(addedTask);
+    }
   }
 
   // header
