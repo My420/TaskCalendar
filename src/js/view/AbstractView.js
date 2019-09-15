@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", unbind] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind"] }] */
 
 class AbstractView {
   constructor(parentElement = null) {

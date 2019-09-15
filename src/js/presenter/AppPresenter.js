@@ -44,7 +44,9 @@ class AppPresenter {
       const newTaskDate = data.newTask.taskDate;
       if (oldTaskDate === newTaskDate) {
         const newTask = this._model.changeTask(data.newTask);
-        console.log(newTask);
+        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
+        console.warn(newTask);
       }
     };
 
