@@ -21,15 +21,28 @@ class AppTaskStorage {
     this._localStorage.appLocalStorage = { ...this._taskStore };
   }
 
-  getTasksForDay(dayDate) {
+  _findDay(dayDate) {
     const date = dateToObject(dayDate);
     if (this._taskStore[date.month][date.year]) {
       if (this._taskStore[date.month][date.year][date.date]) {
-        return [...this._taskStore[date.month][date.year][date.date]];
+        return this._taskStore[date.month][date.year][date.date];
       }
     }
 
     return null;
+  }
+
+  _findYear(dayDate) {
+    const date = dateToObject(dayDate);
+    if (this._taskStore[date.month][date.year]) {
+      return this._taskStore[date.month][date.year];
+    }
+    return null;
+  }
+
+  getTasksForDay(dayDate) {
+    const tasks = this._findDay(dayDate);
+    return tasks && [...tasks];
   }
 
   getTasksForCalendarPeriod(calendarDate) {
@@ -49,23 +62,25 @@ class AppTaskStorage {
   }
 
   addNewTask(task) {
-    const date = dateToObject(task.taskDate);
-
-    if (this._taskStore[date.month][date.year]) {
-      if (this._taskStore[date.month][date.year][date.date]) {
-        this._taskStore[date.month][date.year][date.date].push(task);
+    const { taskDate } = task;
+    const date = dateToObject(taskDate);
+    const day = this._findDay(taskDate);
+    const year = this._findYear(taskDate);
+    if (year) {
+      if (day) {
+        day.push(task);
       } else {
-        this._taskStore[date.month][date.year][date.date] = [task];
+        year[date.date] = [task];
       }
     } else {
       this._taskStore[date.month][date.year] = { [date.date]: [task] };
     }
     this._updateLocalStorage();
-    return task;
+    return { ...task };
   }
 
   getTask(date, id) {
-    const dayTasks = this.getTasksForDay(date);
+    const dayTasks = this._findDay(date);
 
     for (let i = 0; i < dayTasks.length; i += 1) {
       if (dayTasks[i].taskId === id) {
@@ -77,37 +92,37 @@ class AppTaskStorage {
   }
 
   deleteTask(taskDate, id) {
-    const date = dateToObject(taskDate);
-
-    if (this._taskStore[date.month][date.year]) {
-      if (this._taskStore[date.month][date.year][date.date]) {
-        const dayTasks = this._taskStore[date.month][date.year][date.date];
-        const deleteTaskIndex = findTaskIndex(dayTasks, id);
-        const deletedTasks = dayTasks.splice(deleteTaskIndex, 1);
-        this._updateLocalStorage();
-        return deletedTasks[0];
-      }
+    const day = this._findDay(taskDate);
+    if (day) {
+      const deleteTaskIndex = findTaskIndex(day, id);
+      const deletedTasks = day.splice(deleteTaskIndex, 1);
+      this._updateLocalStorage();
+      return deletedTasks[0];
     }
-
     return null;
   }
 
   changeTask(newTask) {
     const task = { ...newTask };
     const { taskDate, taskId } = newTask;
-    const date = dateToObject(taskDate);
+    const day = this._findDay(taskDate);
 
-    if (this._taskStore[date.month][date.year]) {
-      if (this._taskStore[date.month][date.year][date.date]) {
-        const dayTasks = this._taskStore[date.month][date.year][date.date];
-        const changeTaskIndex = findTaskIndex(dayTasks, taskId);
-        dayTasks[changeTaskIndex] = task;
-        this._updateLocalStorage();
-        return { ...dayTasks[changeTaskIndex] };
-      }
+    if (day) {
+      const changeTaskIndex = findTaskIndex(day, taskId);
+      day[changeTaskIndex] = task;
+      this._updateLocalStorage();
+      return { ...day[changeTaskIndex] };
     }
-
     return null;
+  }
+
+  migrateTask(data) {
+    const { oldTask, newTask } = data;
+    const { taskDate, taskId } = oldTask;
+    const deletedTask = this.deleteTask(taskDate, taskId);
+    const addedTask = this.addNewTask(newTask);
+
+    return { deletedTask, addedTask };
   }
 }
 

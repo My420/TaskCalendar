@@ -52,12 +52,7 @@ class AppModel {
   }
 
   migrateTask(data) {
-    const { oldTask, newTask } = data;
-    const { taskDate, taskId } = oldTask;
-    const deletedTask = this.deleteTask(taskDate, taskId);
-    const addedTask = this.addNewTask(newTask);
-
-    return { deletedTask, addedTask };
+    return this._tasks.migrateTask(data);
   }
 }
 
