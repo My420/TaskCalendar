@@ -8,6 +8,10 @@ import dateToObject from '../utils/dateToObject';
 import setDayOnMonday from '../utils/setDayOnMonday';
 import deleteTimePart from '../utils/deleteTimePart';
 import findTaskIndex from '../utils/findTaskIndex';
+import findSubstring from '../utils/findSubstring';
+import markSubstring from '../utils/markSubstring';
+
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["_findSuitableTasks","_createSearchResult"] }] */
 
 class AppTaskStorage {
   constructor() {
@@ -123,6 +127,81 @@ class AppTaskStorage {
     const addedTask = this.addNewTask(newTask);
 
     return { deletedTask, addedTask };
+  }
+
+  _collectAllDaysWithTask(elem, arr) {
+    if (typeof elem === 'object') {
+      if (Array.isArray(elem)) {
+        if (elem.length > 0) {
+          arr.push(elem);
+          return null;
+        }
+        return null;
+      }
+      const child = Object.keys(elem);
+      for (let i = 0; i < child.length; i += 1) {
+        this._collectAllDaysWithTask(elem[child[i]], arr);
+      }
+    }
+    return null;
+  }
+
+  _findSuitableTasks(daysArr, text) {
+    const suitableTasks = [];
+    for (let i = 0; i < daysArr.length; i += 1) {
+      const dayTasks = daysArr[i];
+      for (let j = 0; j < dayTasks.length; j += 1) {
+        const task = dayTasks[j];
+        const { taskName, taskDescription } = task;
+        if (
+          findSubstring(taskName, text) ||
+          findSubstring(taskDescription, text)
+        ) {
+          suitableTasks.push(task);
+        }
+      }
+    }
+    return suitableTasks;
+  }
+
+  _createSearchResult(task, text) {
+    const { taskDate, taskName, taskDescription, taskColor, taskStatus } = task;
+    const matchText =
+      (findSubstring(taskName, text) && markSubstring(taskName, text)) ||
+      (findSubstring(taskDescription, text) &&
+        markSubstring(taskDescription, text));
+    return {
+      color: taskColor,
+      status: taskStatus,
+      text: matchText,
+      date: taskDate
+    };
+  }
+
+  _createSearchAnswer(suitableTasks, text) {
+    const answer = [];
+    for (let i = 0; i < suitableTasks.length; i += 1) {
+      const result = this._createSearchResult(suitableTasks[i], text);
+      answer.push(result);
+    }
+    return answer;
+  }
+
+  _search(text) {
+    const daysArr = [];
+    this._collectAllDaysWithTask(this._taskStore, daysArr);
+    const suitableTasks = this._findSuitableTasks(daysArr, text);
+    const answer = this._createSearchAnswer(suitableTasks, text);
+    return answer;
+  }
+
+  search(text) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const result = this._search(text);
+        resolve(result);
+      }, 2000);
+    });
   }
 }
 

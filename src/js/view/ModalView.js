@@ -2,7 +2,7 @@ import AbstractView from './AbstractView';
 import CardEditView from './CardEditView';
 import CardView from './CardView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewCardAdd","onTaskDelete","onTaskChange"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewTaskAdd","onTaskDelete","onTaskChange"] }] */
 class ModalView extends AbstractView {
   constructor(parentElement) {
     super(parentElement);
@@ -18,7 +18,7 @@ class ModalView extends AbstractView {
       this._parentElement,
       taskData
     );
-    this._currentView.onNewCardAdd = this.onNewCardAdd;
+    this._currentView.onNewTaskAdd = this.onNewTaskAdd;
     this._currentView.onTaskChange = this.onTaskChange;
     this._currentView.render();
   }
@@ -40,7 +40,7 @@ class ModalView extends AbstractView {
 
   unbind() {}
 
-  onNewCardAdd() {}
+  onNewTaskAdd() {}
 
   onTaskDelete() {}
 

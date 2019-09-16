@@ -23,7 +23,7 @@ class AppPresenter {
       this._view.changeTasksDate(newTaskDate, dayTasks);
     };
 
-    this._view.onNewCardAdd = data => {
+    this._view.onNewTaskAdd = data => {
       const task = this._model.addNewTask(data);
       this._view.addTask(task);
     };
@@ -49,6 +49,11 @@ class AppPresenter {
         const answer = this._model.migrateTask(data);
         this._view.migrateTask(answer);
       }
+    };
+
+    this._view.onSearchButtonClick = async text => {
+      const result = await this._model.search(text);
+      return result;
     };
 
     this._view.render();

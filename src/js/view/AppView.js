@@ -6,7 +6,7 @@ import ModalView from './ModalView';
 import deleteTimePart from '../utils/deleteTimePart';
 import compareUpToMonth from '../utils/compareUpToMonth';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onTaskDelete","onTaskChange","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewCardAdd", "onTaskClick"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","onTaskDelete","onTaskChange","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewTaskAdd", "onTaskClick"] }] */
 class AppView extends AbstractView {
   constructor(calendarData, rootElement) {
     super(rootElement);
@@ -48,11 +48,12 @@ class AppView extends AbstractView {
   _setChildrenViewHendlerFunction() {
     this._header.onPrevButtonClick = this.onPrevButtonClick;
     this._header.onNextButtonClick = this.onNextButtonClick;
+    this._header.onSearchButtonClick = this.onSearchButtonClick;
     this._header.onCreateButtonClick = () =>
       this._modal.showCreateCard(this._allDates.tasksDate);
 
     this._calendar.onCellClick = this.onCellClick;
-    this._modal.onNewCardAdd = this.onNewCardAdd;
+    this._modal.onNewTaskAdd = this.onNewTaskAdd;
     this._modal.onTaskDelete = this.onTaskDelete;
     this._modal.onTaskChange = this.onTaskChange;
     this._tasks.onTaskClick = this.onTaskClick;
@@ -142,7 +143,7 @@ class AppView extends AbstractView {
   onSearchButtonClick() {}
 
   // modal
-  onNewCardAdd() {}
+  onNewTaskAdd() {}
 
   onTaskDelete() {}
 

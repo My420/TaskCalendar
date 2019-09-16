@@ -3,7 +3,7 @@ import deleteTimePart from '../utils/deleteTimePart';
 import generateID from '../utils/generateID';
 import { TASK_COLOR, TASK_STATUS } from '../utils/constant';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewCardAdd", "onChangeCard","onTaskChange"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewTaskAdd", "onChangeCard","onTaskChange"] }] */
 class CardEditView extends AbstractView {
   constructor(taskDate, parentElement, cardData = null) {
     super(parentElement);
@@ -38,7 +38,7 @@ class CardEditView extends AbstractView {
       this.onTaskChange({ oldTask, newTask });
       this.unrender();
     } else {
-      this.onNewCardAdd(data);
+      this.onNewTaskAdd(data);
       this.unrender();
     }
   }
@@ -254,7 +254,7 @@ class CardEditView extends AbstractView {
     this._form = null;
   }
 
-  onNewCardAdd() {}
+  onNewTaskAdd() {}
 
   onChangeCard() {}
 

@@ -54,6 +54,10 @@ class AppModel {
   migrateTask(data) {
     return this._tasks.migrateTask(data);
   }
+
+  search(text) {
+    return this._tasks.search(text);
+  }
 }
 
 export default AppModel;

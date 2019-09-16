@@ -1,11 +1,13 @@
 import AbstractView from './AbstractView';
+import hideKeyboard from '../utils/hideKeyboard';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCreateButtonClick"]}] */
 class HeaderView extends AbstractView {
   constructor(chosenDate, parentElement) {
     super(parentElement);
     this._chosenDate = chosenDate;
-    this.onUserClick = this.onUserClick.bind(this);
+    this._onUserClick = this._onUserClick.bind(this);
+    this._onSubmit = this._onSubmit.bind(this);
   }
 
   get template() {
@@ -25,22 +27,29 @@ class HeaderView extends AbstractView {
       </div>
       </div>
       <div class="header__search-wrapper">
-      <input class="header__search" type="text" placeholder="поиск..." />
-      <button class="header__button header__button--search" data-target="search">
-        <span class="visually-hidden">Поиск</span>&#128269</button>
+        <form class="header__form" action="somephpfile.php">
+          <input class="header__search" type="text" minlength="3" placeholder="поиск..." />
+          <button class="header__button header__button--search" type="submit">
+          <span class="visually-hidden">Поиск</span>&#128269</button>
+        </form>
       </div>
       </div>
     </header>`;
   }
 
-  onUserClick(evt) {
+  _onSubmit(evt) {
+    evt.preventDefault();
+    const text = this._input.value;
+    this.onSearchButtonClick(text);
+    hideKeyboard(this._input);
+  }
+
+  _onUserClick(evt) {
     const button = evt.target.dataset.target;
     if (button === `prev`) {
       this.onPrevButtonClick();
     } else if (button === `next`) {
       this.onNextButtonClick();
-    } else if (button === `search`) {
-      this.onSearchButtonClick();
     } else if (button === `create`) {
       this.onCreateButtonClick();
     }
@@ -52,17 +61,21 @@ class HeaderView extends AbstractView {
   }
 
   bind() {
-    this.element
-      .querySelector('.app-header')
-      .addEventListener('click', this.onUserClick);
+    this._header = this.element.querySelector('.app-header');
+    this._header.addEventListener('click', this._onUserClick);
     this._dateScreen = this.element.querySelector('.header__screen');
+    this._form = this.element.querySelector('.header__form');
+    this._form.addEventListener('submit', this._onSubmit);
+    this._input = this.element.querySelector('.header__search');
   }
 
   unbind() {
-    this.element
-      .querySelector('.app-header')
-      .removeEventListener('click', this.onUserClick);
+    this._header.removeEventListener('click', this._onUserClick);
+    this._form.removeEventListener('submit', this._onSubmit);
+    this._header = null;
     this._dateScreen = null;
+    this._form = null;
+    this._input = null;
   }
 
   onPrevButtonClick() {}
