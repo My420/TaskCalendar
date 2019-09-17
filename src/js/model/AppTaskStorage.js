@@ -10,7 +10,7 @@ import dateToObject from '../utils/dateToObject';
 import setDayOnMonday from '../utils/setDayOnMonday';
 import deleteTimePart from '../utils/deleteTimePart';
 import findTaskIndex from '../utils/findTaskIndex';
-import findSubstring from '../utils/findSubstring';
+import isSubstring from '../utils/isSubstring';
 import markSubstring from '../utils/markSubstring';
 import findAllArrayInObj from '../utils/findAllArrayInObj';
 
@@ -61,15 +61,12 @@ class AppTaskStorage {
         taskStatus
       } = task;
 
-      if (
-        findSubstring(taskName, text) ||
-        findSubstring(taskDescription, text)
-      ) {
+      if (isSubstring(taskName, text) || isSubstring(taskDescription, text)) {
         const markName =
-          findSubstring(taskName, text) &&
+          isSubstring(taskName, text) &&
           markSubstring(taskName, text, MARK_OPEN, MARK_CLOSE);
         const markDescription =
-          findSubstring(taskDescription, text) &&
+          isSubstring(taskDescription, text) &&
           markSubstring(taskDescription, text, MARK_OPEN, MARK_CLOSE);
         const searchText = markName || markDescription;
         const result = {
