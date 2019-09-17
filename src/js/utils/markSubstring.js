@@ -1,6 +1,6 @@
-const markSubstring = (str, substr, sign = '*') => {
+const markSubstring = (str, substr, openMark = '*', closeMark = '*') => {
   const search = new RegExp(substr, 'i');
-  const replace = `${sign}${substr}${sign}`;
+  const replace = `${openMark}${substr}${closeMark}`;
 
   return str.replace(search, replace);
 };

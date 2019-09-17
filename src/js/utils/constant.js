@@ -34,3 +34,6 @@ export const TASK_STATUS = {
   ACTIVE: 'active',
   DONE: 'done'
 };
+
+export const MARK_OPEN = '**|';
+export const MARK_CLOSE = '|**';

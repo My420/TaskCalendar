@@ -53,7 +53,7 @@ class AppPresenter {
 
     this._view.onSearchButtonClick = async text => {
       const result = await this._model.search(text);
-      return result;
+      console.log(result);
     };
 
     this._view.render();
