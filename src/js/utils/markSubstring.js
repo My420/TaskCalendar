@@ -1,9 +1,12 @@
-const markSubstring = (str, substr, openMark = '*', closeMark = '*') => {
-  const search = new RegExp(substr, 'i');
-  const match = str.match(search)[0];
-  const replace = `${openMark}${match}${closeMark}`;
+import escapeSpecialCharacters from './escapeSpecialCharacters';
 
-  return str.replace(search, replace);
+const markSubstring = (str, substr, openMark = '*', closeMark = '*') => {
+  const escapedSubstr = escapeSpecialCharacters(substr);
+  const search = new RegExp(escapedSubstr, 'i');
+
+  return str.replace(search, match => {
+    return `${openMark}${match}${closeMark}`;
+  });
 };
 
 export default markSubstring;

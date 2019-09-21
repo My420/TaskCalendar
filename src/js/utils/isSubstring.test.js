@@ -1,3 +1,4 @@
+import * as fc from 'fast-check';
 import isSubstring from './isSubstring';
 
 describe('test isSubstring function', () => {
@@ -15,5 +16,17 @@ describe('test isSubstring function', () => {
     for (let i = 1; i < correct.length; i += 1) {
       expect(isSubstring(incorrect[i], string)).toBeFalsy();
     }
+  });
+
+  test('the returned string must contain the lines of which it consists', () => {
+    fc.assert(
+      fc.property(fc.array(fc.string(4, 10), 4, 10), arr => {
+        const str = arr.join('');
+
+        for (let i = 0; i < arr.length; i += 1) {
+          expect(isSubstring(str, arr[0])).toBeTruthy();
+        }
+      })
+    );
   });
 });
