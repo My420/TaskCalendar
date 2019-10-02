@@ -52,8 +52,9 @@ class AppPresenter {
     };
 
     this._view.onSearchButtonClick = async text => {
+      this._view.showLoading();
       const result = await this._model.search(text);
-      console.log(result);
+      this._view.showSearchResults(result);
     };
 
     this._view.render();

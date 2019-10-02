@@ -28,7 +28,7 @@ class HeaderView extends AbstractView {
       </div>
       <div class="header__search-wrapper">
         <form class="header__form" action="somephpfile.php">
-          <input class="header__search" type="text" minlength="3" placeholder="поиск..." />
+          <input class="header__search" type="text" minlength="3" placeholder="поиск..." required/>
           <button class="header__button header__button--search" type="submit">
           <span class="visually-hidden">Поиск</span>&#128269</button>
         </form>

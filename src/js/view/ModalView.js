@@ -1,6 +1,8 @@
 import AbstractView from './AbstractView';
 import CardEditView from './CardEditView';
 import CardView from './CardView';
+import SearchView from './SearchView';
+import LoadingView from './LoadingView';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewTaskAdd","onTaskDelete","onTaskChange"] }] */
 class ModalView extends AbstractView {
@@ -9,6 +11,8 @@ class ModalView extends AbstractView {
     this._parentElement = parentElement;
     this._cardEditView = CardEditView;
     this._cardView = CardView;
+    this._searchView = SearchView;
+    this._loadingView = LoadingView;
     this.changeTask = this.changeTask.bind(this);
   }
 
@@ -34,6 +38,17 @@ class ModalView extends AbstractView {
     this._currentView.unrender();
     const { taskDate } = task;
     this.showCreateCard(taskDate, task);
+  }
+
+  showLoading() {
+    this._currentView = new this._loadingView(this._parentElement);
+    this._currentView.render();
+  }
+
+  showSearchResults(results) {
+    this._currentView.unrender();
+    this._currentView = new SearchView(results, this._parentElement);
+    this._currentView.render();
   }
 
   bind() {}

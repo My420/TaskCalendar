@@ -135,6 +135,14 @@ class AppView extends AbstractView {
     }
   }
 
+  showLoading() {
+    this._modal.showLoading();
+  }
+
+  showSearchResults(results) {
+    this._modal.showSearchResults(results);
+  }
+
   // header
   onPrevButtonClick() {}
 

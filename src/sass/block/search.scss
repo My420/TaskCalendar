@@ -1,0 +1,140 @@
+.search {
+  box-sizing: border-box;
+
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  padding-top: 20px;
+
+  background-color: transparent;
+}
+
+.search__inner {
+  min-width: 300px;
+  max-width: 400px;
+
+  max-height: 80vh;
+
+  padding: 10px;
+  padding-bottom: 20px;
+
+  background-color: $main-color-1;
+
+  border: 3px solid $main-color-2;
+
+  margin: 0 auto;
+
+  outline: none;
+
+  overflow: auto;
+}
+
+.search__list {
+  list-style: none;
+}
+
+.search__controls {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.search__button {
+  padding: 5px 10px;
+
+  border: 2px solid $main-color-2;
+  border-radius: 5px 5px;
+  background-color: transparent;
+
+  color: $text-color-main;
+
+  outline: none;
+}
+
+.search__empty {
+  width: 100%;
+  height: 80px;
+
+  text-align: center;
+}
+
+.search__button:hover {
+  border-color: $text-color-main;
+}
+
+.search__button:focus {
+  box-shadow: 0 0 10px 3px $focus-color;
+}
+
+.search__button:active {
+  box-shadow: none;
+  opacity: 0.5;
+}
+
+.result__screen {
+  position: absolute;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+}
+
+.result {
+  position: relative;
+  margin-bottom: 10px;
+  border: 1px solid $main-color-2;
+}
+
+.result__date {
+  width: 100%;
+
+  font-size: 16px;
+  line-height: 20px;
+
+  text-align: center;
+  color: $date-color;
+}
+
+.result__name {
+  padding: 5px;
+}
+
+.result__date[data-color='red'] {
+  background-color: $task-color-red;
+}
+
+.result__date[data-color='green'] {
+  background-color: $task-color-green;
+}
+
+.result__date[data-color='yellow'] {
+  background-color: $task-color-yellow;
+}
+
+.result__date[data-color='orange'] {
+  background-color: $task-color-orange;
+}
+
+.result__date[data-color='yellowgreen'] {
+  background-color: $task-color-yellowgreen;
+}
+
+.result__date[data-status='done'] {
+  background-color: $done-color;
+}
+
+.result__name[data-status='done'] {
+  text-decoration-line: line-through;
+  text-decoration-style: double;
+  color: $done-color;
+}
+
+.result__mark {
+  color: $mark-color;
+}
