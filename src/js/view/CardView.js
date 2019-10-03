@@ -1,4 +1,5 @@
 import AbstractView from './AbstractView';
+import getDisplayedDate from '../utils/getDisplayedDate';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["changeTask", "deleteTask", "onTaskDelete"] }] */
 class CardView extends AbstractView {
@@ -33,11 +34,13 @@ class CardView extends AbstractView {
       taskStatus
     } = this._task;
 
+    const displayedDate = getDisplayedDate(taskDate, true);
+
     return `<section class="card" data-action="cancel">
     <h2 class="visually-hidden">Просмотр задачи</h2>
     <div class="card__info" data-status=${taskStatus}>
         <div class="card__color" data-color=${taskColor} data-status=${taskStatus}></div>
-        <span class="card__date">${taskDate}</span>
+        <span class="card__date">${displayedDate}</span>
         <span class="card__name">${taskName}</span>
         ${
           taskDescription.trim()

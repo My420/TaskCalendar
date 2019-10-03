@@ -20,6 +20,21 @@ export const DEFAULT_APP_STORAGE = {
   '12': {}
 };
 
+export const MONTH_MAP = {
+  '01': { sub: 'Январь', dir: 'января' },
+  '02': { sub: 'Февраль', dir: 'февраля' },
+  '03': { sub: 'Март', dir: 'марта' },
+  '04': { sub: 'Апрель', dir: 'апреля' },
+  '05': { sub: 'Май', dir: 'мая' },
+  '06': { sub: 'Июнь', dir: 'июня' },
+  '07': { sub: 'Июль', dir: 'июля' },
+  '08': { sub: 'Август', dir: 'августа' },
+  '09': { sub: 'Сентябрь', dir: 'сентября' },
+  '10': { sub: 'Октябрь', dir: 'октября' },
+  '11': { sub: 'Ноябрь', dir: 'ноября' },
+  '12': { sub: 'Декабрь', dir: 'Декабря' }
+};
+
 export const APP_KEY = 'TASKCALENDAR';
 
 export const TASK_COLOR = {
