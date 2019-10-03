@@ -52,6 +52,11 @@ class AppDate {
     return this.allDates;
   }
 
+  setCalendarDate(date) {
+    this._calendarDate = new Date(date);
+    this._calendarDate.setDate(1);
+  }
+
   setTasksDate(date) {
     this._tasksDate = new Date(date);
     return this.tasksDate;

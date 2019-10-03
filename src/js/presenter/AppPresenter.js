@@ -57,6 +57,11 @@ class AppPresenter {
       this._view.showSearchResults(result);
     };
 
+    this._view.onResultClick = date => {
+      const newData = this._model.setCertainDate(date);
+      this._view.changeCalendarDate(newData.dates, newData.tasks);
+    };
+
     this._view.render();
   }
 }

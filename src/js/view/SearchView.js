@@ -1,7 +1,7 @@
 import AbstractView from './AbstractView';
 import searchResultTemplate from './searchResultTemplate';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["changeTask", "deleteTask", "onTaskDelete"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onResultClick"] }] */
 class SearchView extends AbstractView {
   constructor(data, parentElement) {
     super(parentElement);
@@ -11,8 +11,11 @@ class SearchView extends AbstractView {
   }
 
   _onClick(evt) {
-    const { action } = evt.target.dataset;
+    const { action, date } = evt.target.dataset;
     if (action === 'close') {
+      this.unrender();
+    } else if (action === 'set') {
+      this.onResultClick(date);
       this.unrender();
     }
   }
@@ -54,6 +57,8 @@ class SearchView extends AbstractView {
     this._search.removeEventListener('click', this._onClick);
     this._search = null;
   }
+
+  onResultClick() {}
 }
 
 export default SearchView;

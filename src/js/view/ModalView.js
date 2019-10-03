@@ -4,7 +4,7 @@ import CardView from './CardView';
 import SearchView from './SearchView';
 import LoadingView from './LoadingView';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewTaskAdd","onTaskDelete","onTaskChange"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["template","bind", "unbind", "onNewTaskAdd","onTaskDelete","onTaskChange","onResultClick"] }] */
 class ModalView extends AbstractView {
   constructor(parentElement) {
     super(parentElement);
@@ -48,6 +48,7 @@ class ModalView extends AbstractView {
   showSearchResults(results) {
     this._currentView.unrender();
     this._currentView = new SearchView(results, this._parentElement);
+    this._currentView.onResultClick = this.onResultClick;
     this._currentView.render();
   }
 
@@ -60,6 +61,8 @@ class ModalView extends AbstractView {
   onTaskDelete() {}
 
   onTaskChange() {}
+
+  onResultClick() {}
 }
 
 export default ModalView;

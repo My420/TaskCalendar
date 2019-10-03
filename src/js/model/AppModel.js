@@ -21,6 +21,15 @@ class AppModel {
     return { dates: newDates, tasks };
   }
 
+  setCertainDate(date) {
+    this._date.setCalendarDate(date);
+    this._date.setTasksDate(date);
+    const newDates = this._date.allDates;
+    const tasks = this._tasks.getTasksForCalendarPeriod(newDates.calendarDate);
+
+    return { dates: newDates, tasks };
+  }
+
   changeTasksDate(newDate) {
     const newTaskDate = this._date.setTasksDate(newDate);
     const dayTasks = this._tasks.getTasksForDay(newDate);
