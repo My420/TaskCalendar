@@ -1,5 +1,6 @@
 import AbstractView from './AbstractView';
 import getDisplayedDate from '../utils/getDisplayedDate';
+import { ESC_CODE } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["changeTask", "deleteTask", "onTaskDelete"] }] */
 class CardView extends AbstractView {
@@ -8,6 +9,20 @@ class CardView extends AbstractView {
     this._task = task;
     this._parentElement = parentElement;
     this._onUserClick = this._onUserClick.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
+  }
+
+  _setFocus() {
+    setTimeout(() => {
+      this._card.querySelector('.card__button--change').focus();
+    }, 50);
+  }
+
+  _onKeyUp(evt) {
+    const { code } = evt;
+    if (code === ESC_CODE) {
+      this.unrender();
+    }
   }
 
   _onUserClick(evt) {
@@ -65,11 +80,14 @@ class CardView extends AbstractView {
   bind() {
     this._card = this.element.querySelector('.card');
     this._card.addEventListener('click', this._onUserClick);
+    this._card.addEventListener('keyup', this._onKeyUp);
+
+    this._setFocus();
   }
 
   unbind() {
     this._card.removeEventListener('click', this._onUserClick);
-    this._card = null;
+    this._card.removeEventListener('keyup', this._onKeyUp);
   }
 
   changeTask() {}

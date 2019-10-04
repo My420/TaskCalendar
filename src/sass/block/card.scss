@@ -15,8 +15,9 @@
 }
 
 .card__info {
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 280px;
+  max-width: 420px;
+  width: 80%;
 
   padding: 10px;
   padding-bottom: 20px;
@@ -38,7 +39,14 @@
 
   margin-bottom: 10px;
 
+  border: 1px solid #f7f2f2ab;
+  border-radius: 10px 10px;
+
   text-align: center;
+}
+
+.card__date {
+  border: none;
 }
 
 .card__controls {
@@ -64,16 +72,16 @@
   outline: none;
 }
 
+.card__button:focus {
+  border-color: $focus-color;
+}
+
 .card__button:hover {
   border-color: $text-color-main;
 }
 
-.card__button:focus {
-  box-shadow: 0 0 10px 3px $focus-color;
-}
-
 .card__button:active {
-  box-shadow: none;
+  box-shadow: $main-color-2;
   opacity: 0.5;
 }
 
@@ -119,4 +127,11 @@
   text-decoration-line: line-through;
   text-decoration-style: double;
   color: $done-color;
+}
+
+@media (max-width: 400px) {
+  .card__button {
+    font-size: 14px;
+    line-height: 18px;
+  }
 }
