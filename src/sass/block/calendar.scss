@@ -2,8 +2,6 @@
   width: 100%;
   border-collapse: collapse;
 }
-.calendar__row {
-}
 
 .calendar__header {
   border: 1px solid $main-color-2;
@@ -50,9 +48,26 @@
   margin: auto;
 
   overflow: hidden;
+  outline: none;
+}
+
+.calendar__cell:focus {
+  box-shadow: inset 0 0 5px 2px $focus-color;
+}
+
+.calendar__cell:hover {
+  cursor: pointer;
+}
+
+.calendar__cell:active {
+  box-shadow: none;
 }
 
 .calendar__cell[data-active='true'] {
+  box-shadow: inset 0 0 5px 2px $pick-color-1;
+}
+
+.calendar__cell[data-active='true']:focus {
   box-shadow: inset 0 0 5px 2px $pick-color-1;
 }
 

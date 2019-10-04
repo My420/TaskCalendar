@@ -2,6 +2,7 @@ import AbstractView from './AbstractView';
 import getCalendarTemplate from './calendarTemplate';
 import deleteTimePart from '../utils/deleteTimePart';
 import calendarDayTasksTemplate from './calendarDayTasksTemplate';
+import { ENTER_CODE } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["bind","unbind","onCellClick"]}] */
 class CalendarView extends AbstractView {
@@ -18,6 +19,7 @@ class CalendarView extends AbstractView {
     this._todayDate = todayDate;
     this._tasks = calendarPeriodTasks;
     this._onUserClick = this._onUserClick.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
   }
 
   get template() {
@@ -34,6 +36,13 @@ class CalendarView extends AbstractView {
     </table>
   </section>
     `;
+  }
+
+  _onKeyUp(evt) {
+    const { code } = evt;
+    if (code === ENTER_CODE) {
+      this._onUserClick(evt);
+    }
   }
 
   _onUserClick(evt) {
@@ -62,10 +71,12 @@ class CalendarView extends AbstractView {
   bind() {
     this._table = this.element.querySelector('.calendar__table');
     this._table.addEventListener('click', this._onUserClick);
+    this._table.addEventListener('keyup', this._onKeyUp);
   }
 
   unbind() {
     this._table.removeEventListener('click', this._onUserClick);
+    this._table.removeEventListener('keyup', this._onKeyUp);
   }
 
   changeActiveCell(tasksDate) {

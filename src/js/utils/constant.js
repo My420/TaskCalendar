@@ -52,3 +52,5 @@ export const TASK_STATUS = {
 
 export const MARK_OPEN = '**|';
 export const MARK_CLOSE = '|**';
+
+export const ENTER_CODE = 'Enter';

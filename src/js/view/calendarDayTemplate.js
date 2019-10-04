@@ -20,9 +20,9 @@ const calendarDayTemplate = (
   const isCurrentMonth = month === currentMonth;
 
   return `<td class="calendar__day">
-    <div class="calendar__cell" data-date=${newCellDate} data-active=${isActive} data-today=${isToday} data-current=${isCurrentMonth}>
+    <div class="calendar__cell" data-date=${newCellDate} data-active=${isActive} data-today=${isToday} data-current=${isCurrentMonth} tabindex='0'>
     <div class="calendar__screen" data-date=${newCellDate}></div>
-      <span class="calendar__day-number">${date}</span>    
+      <span class="calendar__day-number">${+date}</span>    
       <div class="calendar__task-wrapper">
         ${calendarDayTasksTemplate(dayTasks)}
       </div>      
