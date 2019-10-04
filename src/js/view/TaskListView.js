@@ -2,14 +2,16 @@ import AbstractView from './AbstractView';
 import taskItemTemplate from './taskItemTemplate';
 import findTaskIndex from '../utils/findTaskIndex';
 import createElement from '../utils/createElement';
+import { ENTER_CODE } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick",""]}] */
 class TaskListView extends AbstractView {
   constructor(tasks, parentElement) {
     super(parentElement);
     this._tasks = tasks || [];
-    this._emptyMessageTemplate = '<li class="taskList__message">Нет задач</li>';
+    this._emptyMessageTemplate = '<li class="taskList__message">задач нет</li>';
     this._onUserClick = this._onUserClick.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
   }
 
   _findTask(id) {
@@ -36,6 +38,13 @@ class TaskListView extends AbstractView {
 
   _showEmptyMessage() {
     this._taskList.insertAdjacentHTML('beforeend', this._emptyMessageTemplate);
+  }
+
+  _onKeyUp(evt) {
+    const { code } = evt;
+    if (code === ENTER_CODE) {
+      this._onUserClick(evt);
+    }
   }
 
   _onUserClick(evt) {
@@ -90,10 +99,12 @@ class TaskListView extends AbstractView {
   bind() {
     this._taskList = this.element.querySelector('.taskList__list');
     this._taskList.addEventListener('click', this._onUserClick);
+    this._taskList.addEventListener('keyup', this._onKeyUp);
   }
 
   unbind() {
     this._taskList.removeEventListener('click', this._onUserClick);
+    this._taskList.removeEventListener('keyup', this._onKeyUp);
   }
 
   onTaskClick() {}

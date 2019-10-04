@@ -49,9 +49,11 @@
 
   overflow: hidden;
   outline: none;
+
+  @include cell-actions;
 }
 
-.calendar__cell:focus {
+/*.calendar__cell:focus {
   box-shadow: inset 0 0 5px 2px $focus-color;
 }
 
@@ -69,7 +71,7 @@
 
 .calendar__cell[data-active='true']:focus {
   box-shadow: inset 0 0 5px 2px $pick-color-1;
-}
+}*/
 
 .calendar__screen {
   position: absolute;

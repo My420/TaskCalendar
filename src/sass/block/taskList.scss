@@ -17,6 +17,10 @@
 
   width: 100%;
   height: 100%;
+
+  outline: none;
+
+  @include cell-actions;
 }
 
 .taskList__item {
@@ -81,7 +85,11 @@
 }
 
 .taskList__message {
+  box-sizing: border-box;
+
   width: 100%;
+  padding: 10px 5px;
+
   text-align: center;
 }
 

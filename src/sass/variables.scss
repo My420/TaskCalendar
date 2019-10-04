@@ -21,3 +21,25 @@ $task-color-orange: orange;
 $task-color-yellow: yellow;
 $task-color-green: green;
 $task-color-yellowgreen: yellowgreen;
+
+@mixin cell-actions {
+  &:focus {
+    box-shadow: inset 0 0 5px 2px $focus-color;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+
+  &[data-active='true'] {
+    box-shadow: inset 0 0 5px 2px $pick-color-1;
+  }
+
+  &[data-active='true']:focus {
+    box-shadow: inset 0 0 5px 2px $pick-color-1;
+  }
+}
