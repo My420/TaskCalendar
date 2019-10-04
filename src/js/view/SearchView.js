@@ -1,5 +1,6 @@
 import AbstractView from './AbstractView';
 import searchResultTemplate from './searchResultTemplate';
+import { ESC_CODE } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onResultClick"] }] */
 class SearchView extends AbstractView {
@@ -8,6 +9,20 @@ class SearchView extends AbstractView {
     this._data = data;
     this._emptyMessage = 'Ничего не найдено';
     this._onClick = this._onClick.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
+  }
+
+  _setFocus() {
+    setTimeout(() => {
+      this._search.querySelector('.search__button').focus();
+    }, 50);
+  }
+
+  _onKeyUp(evt) {
+    const { code } = evt;
+    if (code === ESC_CODE) {
+      this.unrender();
+    }
   }
 
   _onClick(evt) {
@@ -51,11 +66,14 @@ class SearchView extends AbstractView {
   bind() {
     this._search = this.element.querySelector('.search');
     this._search.addEventListener('click', this._onClick);
+    this._search.addEventListener('keyup', this._onKeyUp);
+
+    this._setFocus();
   }
 
   unbind() {
     this._search.removeEventListener('click', this._onClick);
-    this._search = null;
+    this._search.removeEventListener('keyup', this._onKeyUp);
   }
 
   onResultClick() {}

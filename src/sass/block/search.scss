@@ -15,8 +15,9 @@
 }
 
 .search__inner {
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 280px;
+  max-width: 420px;
+  width: 80%;
 
   max-height: 80vh;
 
@@ -64,16 +65,16 @@
   text-align: center;
 }
 
+.search__button:focus {
+  border-color: $focus-color;
+}
+
 .search__button:hover {
   border-color: $text-color-main;
 }
 
-.search__button:focus {
-  box-shadow: 0 0 10px 3px $focus-color;
-}
-
 .search__button:active {
-  box-shadow: none;
+  border-color: $text-color-main;
   opacity: 0.5;
 }
 
