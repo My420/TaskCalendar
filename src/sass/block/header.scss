@@ -124,19 +124,8 @@
   background-color: $main-color-1;
 
   color: $text-color-main;
-}
 
-.header__search:hover {
-  border-color: $main-color-2;
-}
-
-.header__search:focus {
-  border-color: $focus-color;
-}
-
-.header__search:active {
-  border-color: $text-color-main;
-  opacity: 0.5;
+  @include input-actions;
 }
 
 @media (max-width: $pc) {

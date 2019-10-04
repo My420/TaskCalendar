@@ -1,7 +1,7 @@
 import AbstractView from './AbstractView';
 import deleteTimePart from '../utils/deleteTimePart';
 import generateID from '../utils/generateID';
-import { TASK_COLOR, TASK_STATUS } from '../utils/constant';
+import { TASK_COLOR, TASK_STATUS, ESC_CODE } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onNewTaskAdd", "onChangeCard","onTaskChange"] }] */
 class CardEditView extends AbstractView {
@@ -11,8 +11,15 @@ class CardEditView extends AbstractView {
     this._taskDate = deleteTimePart(taskDate);
     this._parentElement = parentElement;
     this._cardData = cardData;
-    this._onCancelButtonClick = this._onCancelButtonClick.bind(this);
+    this._onUserClick = this._onUserClick.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
+  }
+
+  _setFocus() {
+    setTimeout(() => {
+      this._form.querySelector('.form__name').focus();
+    }, 50);
   }
 
   _getFormData() {
@@ -25,8 +32,18 @@ class CardEditView extends AbstractView {
     return cardData;
   }
 
-  _onCancelButtonClick() {
-    this.unrender();
+  _onKeyUp(evt) {
+    const { code } = evt;
+    if (code === ESC_CODE) {
+      this.unrender();
+    }
+  }
+
+  _onUserClick(evt) {
+    const { action } = evt.target.dataset;
+    if (action === 'cancel') {
+      this.unrender();
+    }
   }
 
   _onSubmit(evt) {
@@ -57,7 +74,7 @@ class CardEditView extends AbstractView {
       ? this._cardData.taskStatus
       : TASK_STATUS.ACTIVE;
 
-    return `<section class="card-edit">
+    return `<section class="card-edit" data-action='cancel'>
     <h2 class="visually-hidden">${title}</h2>
     <form class="card-edit__form form" action="somephpfile.php">
       <p class="form__title">${title}:</p>
@@ -99,7 +116,7 @@ class CardEditView extends AbstractView {
           type="text"
           name="taskName"          
           value="${taskName}"         
-          required          
+          required                 
         />
         <div class='form__label-wrapper'>
         <label
@@ -241,17 +258,18 @@ class CardEditView extends AbstractView {
   bind() {
     this._form = this.element.querySelector('.form');
     this._form.addEventListener('submit', this._onSubmit);
+    this._form.addEventListener('keyup', this._onKeyUp);
 
-    this._cancelButton = this.element.querySelector('.form__button--cancel');
-    this._cancelButton.addEventListener('click', this._onCancelButtonClick);
+    this._card = this.element.querySelector('.card-edit');
+    this._card.addEventListener('click', this._onUserClick);
+
+    this._setFocus();
   }
 
   unbind() {
-    this._cancelButton.removeEventListener('click', this._onCancelButtonClick);
-    this._cancelButton = null;
-
     this._form.removeEventListener('submit', this._onSubmit);
-    this._form = null;
+    this._form.removeEventListener('keyup', this._onKeyUp);
+    this._card.removeEventListener('click', this._onUserClick);
   }
 
   onNewTaskAdd() {}

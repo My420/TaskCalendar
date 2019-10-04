@@ -54,3 +54,4 @@ export const MARK_OPEN = '**|';
 export const MARK_CLOSE = '|**';
 
 export const ENTER_CODE = 'Enter';
+export const ESC_CODE = 'Escape';

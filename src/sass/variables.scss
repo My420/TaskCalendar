@@ -43,3 +43,18 @@ $task-color-yellowgreen: yellowgreen;
     box-shadow: inset 0 0 5px 2px $pick-color-1;
   }
 }
+
+@mixin input-actions {
+  &:hover {
+    border-color: $main-color-2;
+  }
+
+  &:focus {
+    border-color: $focus-color;
+  }
+
+  &:active {
+    border-color: $text-color-main;
+    opacity: 0.5;
+  }
+}

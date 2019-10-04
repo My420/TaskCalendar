@@ -19,8 +19,11 @@
   outline: none;
   border-width: 3px;
   border-style: solid;
-  border-color: white;
+  border-color: #f7f2f2ab;
   border-image: none;
+
+  background-color: $main-color-1;
+  color: $text-color-main;
 }
 
 .form__field {
@@ -53,6 +56,12 @@
   margin-bottom: 10px;
 }
 
+.form__name,
+.form__description,
+.form__date {
+  @include input-actions;
+}
+
 .form__legend--colorPicker,
 .form__legend--status {
   display: block;
@@ -78,6 +87,7 @@
   height: 20px;
 
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .form__label--colorPicker[for='color-green'] {
@@ -128,6 +138,7 @@
 .form__label--active,
 .form__label--done {
   display: inline-block;
+  cursor: pointer;
 }
 
 .form__radio:checked + .form__label--active,
@@ -158,31 +169,12 @@
   outline: none;
 }
 
-.form__date:hover,
-.form__name:hover,
-.form__description:hover {
-  border-color: $main-color-2;
-}
-
-.form__date:focus,
-.form__name:focus,
-.form__description:focus {
-  box-shadow: 0 0 10px 3px $focus-color;
-}
-
-.form__date:active,
-.form__name:active,
-.form__description:active {
-  box-shadow: none;
-  opacity: 0.5;
+.form__button:focus {
+  border-color: $focus-color;
 }
 
 .form__button:hover {
   border-color: $text-color-main;
-}
-
-.form__button:focus {
-  box-shadow: 0 0 10px 3px $focus-color;
 }
 
 .form__button:active {
@@ -197,4 +189,12 @@
 
 .form__label--colorPicker:hover {
   box-shadow: inset 0 0 3px 1px $main-color-1;
+}
+
+@media (max-width: 450px) {
+  .form {
+    box-sizing: border-box;
+    width: 90%;
+    min-width: 280px;
+  }
 }
