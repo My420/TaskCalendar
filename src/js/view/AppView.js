@@ -3,6 +3,7 @@ import CalendarView from './CalendarView';
 import AbstractView from './AbstractView';
 import TaskListView from './TaskListView';
 import ModalView from './ModalView';
+import FooterView from './FooterView';
 import deleteTimePart from '../utils/deleteTimePart';
 import compareUpToMonth from '../utils/compareUpToMonth';
 
@@ -43,6 +44,7 @@ class AppView extends AbstractView {
     );
     this._tasks = new TaskListView(tasks, this._tasksContainer);
     this._modal = new ModalView(this._modalContainer);
+    this._footer = new FooterView(this._footerContainer);
   }
 
   _setChildrenViewHendlerFunction() {
@@ -64,6 +66,7 @@ class AppView extends AbstractView {
     this._header.render();
     this._calendar.render();
     this._tasks.render();
+    this._footer.render();
   }
 
   get template() {

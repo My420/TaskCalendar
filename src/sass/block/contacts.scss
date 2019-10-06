@@ -1,0 +1,35 @@
+.contacts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 140px;
+
+  list-style: none;
+}
+
+.contacts__link {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+
+  border-radius: 50%;
+  outline: none;
+}
+
+.contacts__path {
+  fill: $text-color-main;
+}
+
+.contacts__link:hover .contacts__path {
+  fill: $main-color-2;
+}
+
+.contacts__link:focus .contacts__path {
+  fill: $focus-color;
+}
+
+.contacts__link:active .contacts__path {
+  fill: $text-color-main;
+  opacity: 0.5;
+}
