@@ -10,7 +10,7 @@ const searchResultTemplate = result => {
   const displayedDate = getDisplayedDate(date, true);
 
   return `<li class='search__item result'>
-  <div class='result__screen' data-date=${date} data-action='set'></div>
+  <div class='result__screen' data-date=${date} data-action='set' tabindex='0'></div>
     <div class='result__wrapper'>    
       <p class='result__date' data-color=${color} data-status=${status}>${displayedDate}</p>    
       <p class='result__name' data-status=${status}>${markedText}</p>   

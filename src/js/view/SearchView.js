@@ -1,6 +1,6 @@
 import AbstractView from './AbstractView';
 import searchResultTemplate from './searchResultTemplate';
-import { ESC_CODE } from '../utils/constant';
+import { ESC_CODE, ENTER_CODE } from '../utils/constant';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onResultClick"] }] */
 class SearchView extends AbstractView {
@@ -22,6 +22,8 @@ class SearchView extends AbstractView {
     const { code } = evt;
     if (code === ESC_CODE) {
       this.unrender();
+    } else if (code === ENTER_CODE) {
+      this._onClick(evt);
     }
   }
 
