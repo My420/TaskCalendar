@@ -26,6 +26,11 @@ body {
   color: white;
 }
 
+body .taskList__item {
+  list-style: none;
+  line-height: 20px;
+}
+
 input,
 textarea {
   font-family: 'Open Sans', 'Arial', sans-serif;
