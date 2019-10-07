@@ -139,9 +139,7 @@ class TaskListView extends AbstractView {
           moveAt(event.pageX, event.pageY);
 
           if (!elemBelow) return;
-          const droppableBelow =
-            elemBelow.closest('.calendar__screen') ||
-            elemBelow.closest('.taskList__screen');
+          const droppableBelow = elemBelow.closest('.calendar__screen');
 
           if (currentDroppable !== droppableBelow) {
             if (currentDroppable) {
@@ -166,14 +164,9 @@ class TaskListView extends AbstractView {
           } else {
             this._onUserClick(evt);
           }
-        } else if (currentDroppable.classList.value === 'calendar__screen') {
+        } else {
           console.log(this._tasks[taskIndex]);
           console.log(`мигрирум на ${currentDroppable.dataset.date}`);
-          clone.remove();
-        } else {
-          if (evt.target.dataset.date === currentDroppable.dataset.date) {
-            this._onUserClick(evt);
-          }
           clone.remove();
         }
         document.removeEventListener('mousemove', onMouseMove);
