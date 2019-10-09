@@ -27,8 +27,15 @@ body {
 }
 
 body .taskList__item {
+  position: absolute;
+  z-index: 1000;
+
+  border: 1px solid $main-color-2;
+
   list-style: none;
   line-height: 20px;
+
+  cursor: pointer;
 }
 
 input,

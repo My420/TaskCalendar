@@ -53,26 +53,6 @@
   @include cell-actions;
 }
 
-/*.calendar__cell:focus {
-  box-shadow: inset 0 0 5px 2px $focus-color;
-}
-
-.calendar__cell:hover {
-  cursor: pointer;
-}
-
-.calendar__cell:active {
-  box-shadow: none;
-}
-
-.calendar__cell[data-active='true'] {
-  box-shadow: inset 0 0 5px 2px $pick-color-1;
-}
-
-.calendar__cell[data-active='true']:focus {
-  box-shadow: inset 0 0 5px 2px $pick-color-1;
-}*/
-
 .calendar__screen {
   position: absolute;
   top: 0;
@@ -81,6 +61,10 @@
 
   width: 100%;
   height: 100%;
+}
+
+.calendar__screen[data-droppable='true'] {
+  background-color: $droppable-color;
 }
 
 .calendar__day-number {

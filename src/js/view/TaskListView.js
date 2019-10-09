@@ -98,23 +98,23 @@ class TaskListView extends AbstractView {
   }
 
   _onMouseDown(evt) {
-    if (evt.target.className === 'taskList__screen') {
-      const taskIndex = evt.target.dataset.index;
-      let isMouseMove = false;
-      const shiftX = evt.clientX - evt.target.getBoundingClientRect().left;
-      const shiftY = evt.clientY - evt.target.getBoundingClientRect().top;
+    if (evt.target.className === 'taskList__screen' && evt.button < 2) {
+      evt.preventDefault();
 
+      const screen = evt.target;
+      const task = screen.parentNode;
+
+      let isMouseMove = false;
       const startPositionX = evt.clientX;
       const startPositionY = evt.clientY;
-
-      const { offsetWidth: width, offsetHeight: height } = evt.target;
+      const shiftX = startPositionX - screen.getBoundingClientRect().left;
+      const shiftY = startPositionY - screen.getBoundingClientRect().top;
+      const { offsetWidth: width, offsetHeight: height } = screen;
       let currentDroppable = null;
 
-      const clone = evt.target.parentNode.cloneNode(true);
+      const clone = task.cloneNode(true);
       clone.style.width = `${width}px`;
       clone.style.height = `${height}px`;
-      clone.style.zIndex = 1000;
-      clone.style.position = 'absolute';
 
       const moveAt = (pageX, pageY) => {
         clone.style.left = `${pageX - shiftX}px`;
@@ -127,6 +127,7 @@ class TaskListView extends AbstractView {
 
         if (Math.abs(posShiftX) > 3 || Math.abs(posShiftY) > 3) {
           isMouseMove = true;
+          task.hidden = true;
           document.body.append(clone);
           moveAt(event.pageX, event.pageY);
 
@@ -143,31 +144,41 @@ class TaskListView extends AbstractView {
 
           if (currentDroppable !== droppableBelow) {
             if (currentDroppable) {
-              console.log(`улетели с `, currentDroppable);
+              currentDroppable.dataset.droppable = false;
             }
 
             currentDroppable = droppableBelow;
 
             if (droppableBelow) {
-              console.log(`прилетели на `, droppableBelow.dataset.date);
+              currentDroppable.dataset.droppable = true;
             }
           }
         }
       };
 
       const onMouseUp = () => {
-        console.log(currentDroppable);
-
         if (!currentDroppable) {
           if (isMouseMove) {
             clone.remove();
+            task.hidden = false;
           } else {
             this._onUserClick(evt);
           }
         } else {
-          console.log(this._tasks[taskIndex]);
-          console.log(`мигрирум на ${currentDroppable.dataset.date}`);
+          currentDroppable.dataset.droppable = false;
           clone.remove();
+
+          const taskIndex = screen.dataset.index;
+          const oldTask = this._tasks[taskIndex];
+          const oldDate = oldTask.taskDate;
+          const newDate = currentDroppable.dataset.date;
+          if (newDate === oldDate) {
+            console.log('даты равны');
+            task.hidden = false;
+          } else {
+            const newTask = { ...oldTask, taskDate: newDate };
+            console.log(oldTask, newTask);
+          }
         }
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);

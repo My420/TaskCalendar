@@ -21,7 +21,7 @@ const calendarDayTemplate = (
 
   return `<td class="calendar__day">
     <div class="calendar__cell" data-date=${newCellDate} data-active=${isActive} data-today=${isToday} data-current=${isCurrentMonth} tabindex='0'>
-    <div class="calendar__screen" data-date=${newCellDate}></div>
+    <div class="calendar__screen" data-date=${newCellDate} data-droppable='false'></div>
       <span class="calendar__day-number">${+date}</span>    
       <div class="calendar__task-wrapper">
         ${calendarDayTasksTemplate(dayTasks)}

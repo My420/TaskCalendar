@@ -23,9 +23,10 @@
   @include cell-actions;
 }
 
-.taskList__item {
+.taskList__list .taskList__item {
   position: relative;
   height: 50px;
+  z-index: 0;
   margin-bottom: 5px;
 
   border: 1px solid $main-color-2;
