@@ -4,7 +4,7 @@ import findTaskIndex from '../utils/findTaskIndex';
 import createElement from '../utils/createElement';
 import { ENTER_CODE } from '../utils/constant';
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick",""]}] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick","onTaskChange"]}] */
 class TaskListView extends AbstractView {
   constructor(tasks, parentElement) {
     super(parentElement);
@@ -137,7 +137,8 @@ class TaskListView extends AbstractView {
           task.hidden = false;
         } else {
           const newTask = { ...oldTask, taskDate: newDate };
-          console.log(oldTask, newTask);
+          const oldTaskClone = { ...oldTask };
+          this.onTaskChange({ oldTask: oldTaskClone, newTask });
         }
       }
       if (isMouse) {
@@ -223,6 +224,8 @@ class TaskListView extends AbstractView {
   }
 
   onTaskClick() {}
+
+  onTaskChange() {}
 }
 
 export default TaskListView;

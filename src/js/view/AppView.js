@@ -60,6 +60,7 @@ class AppView extends AbstractView {
     this._modal.onTaskChange = this.onTaskChange;
     this._modal.onResultClick = this.onResultClick;
     this._tasks.onTaskClick = this.onTaskClick;
+    this._tasks.onTaskChange = this.onTaskChange;
   }
 
   _renderChildrenView() {
