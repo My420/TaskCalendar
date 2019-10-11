@@ -1,5 +1,4 @@
 import {
-  APP_KEY,
   DEFAULT_APP_STORAGE,
   CALENDAR_DAY_AMOUNT,
   MARK_OPEN,
@@ -17,8 +16,8 @@ import findAllArrayInObj from '../utils/findAllArrayInObj';
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["_findSuitableTasks","_createSearchResult"] }] */
 
 class AppTaskStorage {
-  constructor() {
-    this._key = APP_KEY;
+  constructor(localStorageKey) {
+    this._key = localStorageKey;
     this._defaultStorage = DEFAULT_APP_STORAGE;
     this._localStorage = new LocalStorage(this._key, this._defaultStorage);
     this._taskStore = this._localStorage.appLocalStorage;
@@ -167,12 +166,10 @@ class AppTaskStorage {
 
   search(text) {
     return new Promise(resolve => {
-      setTimeout(() => {
-        this._searchText = text;
-        this._searchResult = [];
-        findAllArrayInObj(this._taskStore, this._createSearchAnswerList);
-        resolve(this._searchResult);
-      }, 2000);
+      this._searchText = text;
+      this._searchResult = [];
+      findAllArrayInObj(this._taskStore, this._createSearchAnswerList);
+      resolve(this._searchResult);
     });
   }
 }

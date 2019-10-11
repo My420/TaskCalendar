@@ -8,16 +8,20 @@ class AppDate {
     this._tasksDate = new Date();
   }
 
+  static toJsonWithLocalTimeZone(date) {
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
+  }
+
   get todayDate() {
-    return this._todayDate.toJSON();
+    return AppDate.toJsonWithLocalTimeZone(this._todayDate);
   }
 
   get calendarDate() {
-    return this._calendarDate.toJSON();
+    return AppDate.toJsonWithLocalTimeZone(this._calendarDate);
   }
 
   get tasksDate() {
-    return this._tasksDate.toJSON();
+    return AppDate.toJsonWithLocalTimeZone(this._tasksDate);
   }
 
   get allDates() {

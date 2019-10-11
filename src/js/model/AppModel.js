@@ -1,10 +1,11 @@
 import AppDate from './AppDate';
 import AppTaskStorage from './AppTaskStorage';
+import { APP_KEY } from '../utils/constant';
 
 class AppModel {
   constructor() {
     this._date = new AppDate();
-    this._tasks = new AppTaskStorage();
+    this._tasks = new AppTaskStorage(APP_KEY);
   }
 
   changeMonthToNext() {

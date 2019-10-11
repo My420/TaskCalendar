@@ -9,7 +9,7 @@ class SearchView extends AbstractView {
     this._data = data;
     this._emptyMessage = 'Ничего не найдено';
     this._onClick = this._onClick.bind(this);
-    this._onKeyUp = this._onKeyUp.bind(this);
+    this._onKeyDown = this._onKeyDown.bind(this);
   }
 
   _setFocus() {
@@ -18,7 +18,7 @@ class SearchView extends AbstractView {
     }, 50);
   }
 
-  _onKeyUp(evt) {
+  _onKeyDown(evt) {
     const { code } = evt;
     if (code === ESC_CODE) {
       this.unrender();
@@ -68,14 +68,14 @@ class SearchView extends AbstractView {
   bind() {
     this._search = this.element.querySelector('.search');
     this._search.addEventListener('click', this._onClick);
-    this._search.addEventListener('keyup', this._onKeyUp);
+    this._search.addEventListener('keydown', this._onKeyDown);
 
     this._setFocus();
   }
 
   unbind() {
     this._search.removeEventListener('click', this._onClick);
-    this._search.removeEventListener('keyup', this._onKeyUp);
+    this._search.removeEventListener('keydown', this._onKeyDown);
   }
 
   onResultClick() {}

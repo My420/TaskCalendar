@@ -45,6 +45,30 @@ describe('App Date class works correct', () => {
   test('setTasksDate should work correct', () => {
     const newDate = '2019-09-12T00:00:00.000Z';
     appDate.setTasksDate(newDate);
-    expect(appDate.tasksDate).toBe('2019-09-12T00:00:00.000Z');
+    expect(appDate._tasksDate.toJSON()).toBe('2019-09-12T00:00:00.000Z');
+  });
+
+  test('setCalendarDate should work correct', () => {
+    const newDate = '2019-09-12T00:00:00.000Z';
+    appDate.setCalendarDate(newDate);
+    expect(appDate._calendarDate.toJSON()).toBe('2019-09-01T00:00:00.000Z');
+  });
+
+  test('get tasksDate should consider local time zone', () => {
+    const date = appDate.tasksDate;
+    const hours = appDate._tasksDate.getHours();
+    expect(+date.slice(11, 13)).toBe(hours);
+  });
+
+  test('get calendarDate should consider local time zone', () => {
+    const date = appDate.calendarDate;
+    const hours = appDate._calendarDate.getHours();
+    expect(+date.slice(11, 13)).toBe(hours);
+  });
+
+  test('get todayDate should consider local time zone', () => {
+    const date = appDate.todayDate;
+    const hours = appDate._todayDate.getHours();
+    expect(+date.slice(11, 13)).toBe(hours);
   });
 });
