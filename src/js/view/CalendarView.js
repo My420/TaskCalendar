@@ -56,8 +56,7 @@ class CalendarView extends AbstractView {
     const cell = this._table.querySelector(
       `.calendar__cell[data-date='${date}']`
     );
-    const tasksContainer = cell.querySelector('.calendar__task-wrapper');
-    return tasksContainer;
+    return cell && cell.querySelector('.calendar__task-wrapper');
   }
 
   _findTask(date, id) {
@@ -106,9 +105,11 @@ class CalendarView extends AbstractView {
 
   addTaskToCell(task) {
     const { taskDate } = task;
-    const newTaskTemplate = calendarDayTasksTemplate([task]);
     const tasksContainer = this._findTasksContainerByDate(taskDate);
-    tasksContainer.insertAdjacentHTML('beforeend', newTaskTemplate);
+    if (tasksContainer) {
+      const newTaskTemplate = calendarDayTasksTemplate([task]);
+      tasksContainer.insertAdjacentHTML('beforeend', newTaskTemplate);
+    }
   }
 
   deleteTaskFromCell(taskDate, taskId) {

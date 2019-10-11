@@ -5,7 +5,6 @@ import TaskListView from './TaskListView';
 import ModalView from './ModalView';
 import FooterView from './FooterView';
 import deleteTimePart from '../utils/deleteTimePart';
-import compareUpToMonth from '../utils/compareUpToMonth';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onResultClick","template","onTaskDelete","onTaskChange","onPrevButtonClick","onNextButtonClick","onSearchButtonClick","onCellClick", "onNewTaskAdd", "onTaskClick"] }] */
 class AppView extends AbstractView {
@@ -132,12 +131,9 @@ class AppView extends AbstractView {
 
   migrateTask(data) {
     const { deletedTask, addedTask } = data;
-    const newTaskDate = addedTask.taskDate;
     const { taskDate, taskId } = deletedTask;
     this.deleteTask(taskDate, taskId);
-    if (compareUpToMonth(taskDate, newTaskDate)) {
-      this._calendar.addTaskToCell(addedTask);
-    }
+    this._calendar.addTaskToCell(addedTask);
   }
 
   showLoading() {
@@ -148,14 +144,12 @@ class AppView extends AbstractView {
     this._modal.showSearchResults(results);
   }
 
-  // header
   onPrevButtonClick() {}
 
   onNextButtonClick() {}
 
   onSearchButtonClick() {}
 
-  // modal
   onNewTaskAdd() {}
 
   onTaskDelete() {}
@@ -164,10 +158,8 @@ class AppView extends AbstractView {
 
   onResultClick() {}
 
-  // calendar
   onCellClick() {}
 
-  // taskList
   onTaskClick() {}
 }
 
