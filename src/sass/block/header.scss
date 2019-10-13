@@ -18,7 +18,7 @@
   color: $main-color-2;
 }
 
-.header__inner {
+.header__navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -162,7 +162,7 @@
     text-align: start;
     font-size: 30px;
   }
-  .header__inner {
+  .header__navigation {
     position: relative;
   }
 
@@ -186,7 +186,7 @@
     font-size: 25px;
   }
 
-  .header__inner {
+  .header__navigation {
     height: 35px;
   }
 
@@ -222,7 +222,7 @@
     margin-bottom: 10px;
   }
 
-  .header__inner {
+  .header__navigation {
     height: auto;
     flex-direction: column-reverse;
   }

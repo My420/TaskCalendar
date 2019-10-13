@@ -51,7 +51,7 @@ class CardView extends AbstractView {
 
     const displayedDate = getDisplayedDate(taskDate, true);
 
-    return `<section class="card" data-action="cancel">
+    return `<section class="app__card card" data-action="cancel">
     <h2 class="visually-hidden">Просмотр задачи</h2>
     <div class="card__info" data-status=${taskStatus}>
         <div class="card__color" data-color=${taskColor} data-status=${taskStatus}></div>

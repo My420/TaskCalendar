@@ -54,7 +54,7 @@ class SearchView extends AbstractView {
   }
 
   get template() {
-    return `<section class='search' data-action='close'>
+    return `<section class='app__search search' data-action='close'>
     <h2 class='visually-hidden'>Результаты поиска</h2>
     <div class='search__inner'>
     ${this._getResultsTemplate()}

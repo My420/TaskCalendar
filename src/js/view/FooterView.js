@@ -9,8 +9,8 @@ class FooterView extends AbstractView {
   }
 
   get template() {
-    return `<footer class="page_footer">
-        <ul class="page_footer__contacts contacts">
+    return `<footer class="app__footer footer">
+        <ul class="footer__contacts contacts">
           <li class="contacts__item">
             <a class="contacts__link contacts__link--github" href="https://github.com/My420">
                 <span class="visually-hidden">Github</span>

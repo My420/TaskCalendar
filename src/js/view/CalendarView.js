@@ -24,7 +24,7 @@ class CalendarView extends AbstractView {
 
   get template() {
     return `
-    <section class="calendar">
+    <section class="app__calendar calendar">
     <h2 class="visually-hidden">Календарь</h2>
     <table class="calendar__table">          
         ${getCalendarTemplate(

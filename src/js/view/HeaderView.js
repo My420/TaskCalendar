@@ -14,10 +14,10 @@ class HeaderView extends AbstractView {
   get template() {
     const displayedDate = getDisplayedDate(this._chosenDate);
 
-    return `<header class="app-header header">
+    return `<header class="app__header header">
       <h1 class="visually-hidden">Календарь задач</h1>
       <p class="header__logo">TaskCalendar</p>
-      <div class="header__inner">
+      <nav class="header__navigation">
       <div class="header__cover">
       <button class="header__button header__button--create" data-target="create">
         <span class="visually-hidden">Создать задачу</span>+</button>
@@ -45,7 +45,7 @@ class HeaderView extends AbstractView {
           </div>
         </form>
       </div>
-      </div>
+      </nav>
     </header>`;
   }
 
@@ -74,7 +74,7 @@ class HeaderView extends AbstractView {
   }
 
   bind() {
-    this._header = this.element.querySelector('.app-header');
+    this._header = this.element.querySelector('.app__header');
     this._header.addEventListener('click', this._onUserClick);
     this._dateScreen = this.element.querySelector('.header__screen');
     this._form = this.element.querySelector('.header__form');

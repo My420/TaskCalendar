@@ -74,7 +74,7 @@ class CardEditView extends AbstractView {
       ? this._cardData.taskStatus
       : TASK_STATUS.ACTIVE;
 
-    return `<section class="card-edit" data-action='cancel'>
+    return `<section class="app__card-edit card-edit" data-action='cancel'>
     <h2 class="visually-hidden">${title}</h2>
     <form class="card-edit__form form" action="somephpfile.php">
       <p class="form__title">${title}:</p>

@@ -171,7 +171,7 @@ class TaskListView extends AbstractView {
 
   get template() {
     return `
-      <section class="taskList">
+      <section class="app__taskList taskList">
       <h2 class="visually-hidden">Список дел</h2>
       <ul class="taskList__list">${this._getListTemplate()}</ul>     
     </section>
