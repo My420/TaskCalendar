@@ -1,13 +1,15 @@
-/* eslint-disable strict */
-
-'use strict';
-
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const csso = require('gulp-csso');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpif = require('gulp-if');
 const del = require('del');
 const rollup = require('gulp-better-rollup');
+const babel = require('rollup-plugin-babel');
+const terser = require('gulp-terser');
+const imagemin = require('gulp-imagemin');
 const browserSync = require('browser-sync').create();
 
 const isDevelopment =
@@ -18,6 +20,8 @@ gulp.task('styles', () => {
     .src('src/sass/style.scss')
     .pipe(gulpif(isDevelopment, sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([autoprefixer()]))
+    .pipe(gulpif(!isDevelopment, csso()))
     .pipe(gulpif(isDevelopment, sourcemaps.write('')))
     .pipe(gulp.dest('build/css'));
 });
@@ -26,7 +30,15 @@ gulp.task('js', () => {
   return gulp
     .src('src/js/main.js')
     .pipe(gulpif(isDevelopment, sourcemaps.init()))
-    .pipe(rollup({}, 'iife'))
+    .pipe(
+      rollup(
+        {
+          plugins: [babel()]
+        },
+        'iife'
+      )
+    )
+    .pipe(gulpif(!isDevelopment, terser()))
     .pipe(gulpif(isDevelopment, sourcemaps.write('')))
     .pipe(gulp.dest('build/js'));
 });
@@ -37,7 +49,19 @@ gulp.task('html', () => {
 
 gulp.task('image', () => {
   return gulp
-    .src('src/img/**/*.{png,jpeg,jpg,gif,svg}')
+    .src('src/img/**/*.{png,jpeg,jpg,gif,svg}', {
+      since: gulp.lastRun('image')
+    })
+    .pipe(
+      imagemin([
+        imagemin.gifsicle({ interlaced: true }),
+        imagemin.jpegtran({ progressive: true }),
+        imagemin.optipng({ optimizationLevel: 3 }),
+        imagemin.svgo({
+          plugins: [{ cleanupIDs: false }]
+        })
+      ])
+    )
     .pipe(gulp.dest('build/img'));
 });
 

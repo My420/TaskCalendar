@@ -7,10 +7,14 @@
     "eslint": "eslint js/",
     "start": "set NODE_ENV=development&& gulp dev",
     "build": "set NODE_ENV=production&& gulp build",
-    "test": "jest",
+    "test": "jest --watch",
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "autoprefixer": "^9.7.3",
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "babel-register": "6.26.0",
@@ -27,21 +31,21 @@
     "fast-check": "^1.17.0",
     "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
+    "gulp-csso": "^4.0.1",
     "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemap": "1.0.1",
     "gulp-sourcemaps": "^2.6.5",
+    "gulp-terser": "^1.2.0",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
     "lint-staged": "^8.1.7",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.10.0",
-    "rollup": "^1.21.3"
-  },
-  "babel": {
-    "plugins": [
-      "transform-es2015-modules-commonjs"
-    ]
+    "rollup": "^1.21.3",
+    "rollup-plugin-babel": "^4.3.3"
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -49,5 +53,8 @@
       "eslint src/js/ --fix",
       "git add"
     ]
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.7.0"
   }
 }
