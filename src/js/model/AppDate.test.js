@@ -26,14 +26,16 @@ describe('App Date class works correct', () => {
     const currentMonth = appDate._calendarDate.getMonth();
     appDate.setNextMonth();
     const newMonth = appDate._calendarDate.getMonth();
-    expect(newMonth).toBe(currentMonth + 1);
+    const expected = currentMonth === 11 ? 0 : currentMonth + 1;
+    expect(newMonth).toBe(expected);
   });
 
   test('setPrevMonth should work correct', () => {
     const currentMonth = appDate._calendarDate.getMonth();
     appDate.setPrevMonth();
     const newMonth = appDate._calendarDate.getMonth();
-    expect(newMonth).toBe(currentMonth - 1);
+    const expected = currentMonth === 0 ? 11 : currentMonth - 1;
+    expect(newMonth).toBe(expected);
   });
 
   test('all AppDate geter must return string', () => {
