@@ -41,7 +41,7 @@ class AppView extends AbstractView {
       this._calendarPeriodTasks,
       this._calendarContainer
     );
-    this._tasks = new TaskListView(tasks, this._tasksContainer);
+    this._tasks = new TaskListView(tasksDate, tasks, this._tasksContainer);
     this._modal = new ModalView(this._modalContainer);
     this._footer = new FooterView(this._footerContainer);
   }
@@ -73,7 +73,7 @@ class AppView extends AbstractView {
     return `<div class="container container__modal"></div>
     <div class="container container__header"></div>
     <div class="container container__main">
-    <main class="app__main">    
+    <main class="app__main">
     <div class="container container__calendar"></div>
     <div class="container container__tasks"></div>
     </main>
@@ -101,7 +101,7 @@ class AppView extends AbstractView {
       this._calendarPeriodTasks
     );
 
-    this._tasks.changeTasks(this._getTasksForTasksList(tasksDate));
+    this._tasks.changeTasks(tasksDate, this._getTasksForTasksList(tasksDate));
   }
 
   addTask(task) {
@@ -112,7 +112,7 @@ class AppView extends AbstractView {
   changeTasksDate(newTaskDate, dayTasks) {
     this._allDates.tasksDate = newTaskDate;
     this._calendar.changeActiveCell(newTaskDate);
-    this._tasks.changeTasks(dayTasks);
+    this._tasks.changeTasks(newTaskDate, dayTasks);
   }
 
   showTaskCard(task) {

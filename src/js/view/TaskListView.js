@@ -3,11 +3,13 @@ import taskItemTemplate from './taskItemTemplate';
 import findTaskIndex from '../utils/findTaskIndex';
 import createElement from '../utils/createElement';
 import { ENTER_CODE } from '../utils/constant';
+import deleteTimePart from '../utils/deleteTimePart';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onTaskClick","onTaskChange"]}] */
 class TaskListView extends AbstractView {
-  constructor(tasks, parentElement) {
+  constructor(listDate, tasks, parentElement) {
     super(parentElement);
+    this._listDate = listDate;
     this._tasks = tasks || [];
     this._emptyMessageTemplate = '<li class="taskList__message">задач нет</li>';
     this._onUserClick = this._onUserClick.bind(this);
@@ -173,24 +175,30 @@ class TaskListView extends AbstractView {
     return `
       <section class="app__taskList taskList">
       <h2 class="visually-hidden">Список дел</h2>
-      <ul class="taskList__list">${this._getListTemplate()}</ul>     
+      <ul class="taskList__list">${this._getListTemplate()}</ul>
     </section>
       `;
   }
 
-  changeTasks(newTasks) {
+  changeTasks(newListDate, newTasks) {
     this.unrender();
+    this._listDate = newListDate;
     this._tasks = newTasks || [];
     this.render();
   }
 
   addTaskToList(task) {
-    if (this._tasks.length === 0) {
-      this._deleteEmptyMessage();
+    const { taskDate } = task;
+    const listDate = deleteTimePart(this._listDate);
+
+    if (taskDate === listDate) {
+      if (this._tasks.length === 0) {
+        this._deleteEmptyMessage();
+      }
+      this._tasks.push(task);
+      const newTask = taskItemTemplate(task);
+      this._taskList.insertAdjacentHTML('beforeend', newTask);
     }
-    this._tasks.push(task);
-    const newTask = taskItemTemplate(task);
-    this._taskList.insertAdjacentHTML('beforeend', newTask);
   }
 
   deleteTaskFromList(taskId) {
