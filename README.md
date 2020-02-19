@@ -1,5 +1,5 @@
 # [TaskCalendar](https://my420.github.io/TaskCalendar/)
-![TaskCalendar Preview](https://drive.google.com/uc?id=140dt3jj_d_C8vOMTYx0mGwQHIFY6fFaU)
+![TaskCalendar Preview](http://pixs.ru/images/2020/02/19/taskcalendarFull.gif)
 
 ##### SPA, HTML, CSS, JS, MVP, [Jest](https://jestjs.io/).
 TaskCalendar – это простой планировщик задач, представляющий из себя SPA, написанное на чистом JS с использованием паттерна MVP. Данные пользователя хранятся в localStorage. Юнит тесты бизнес-логики выполнены с помощью Jest. В приложении реализован **Drag-and-drop** работающий как в десктопных так и в мобильных браузерах.
